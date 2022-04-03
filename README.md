@@ -26,7 +26,7 @@ npm i
 
 - Check out me ([@notPlancha](https://github.com/notPlancha)) for possibly future extensions, and check the where the repository is updated and stuff: [Volume-Profiles-Spicetify-Extension-v2](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
 
-- If you have any suggestions, drop it on the [issues's page](https://github.com/notPlancha/volume-profiles-spicetify/issues) or a direct pull request
+- If you have any suggestions, drop it on the [discussions page](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2/discussions) or make a pull request
 
 ## Made with Spicetify Creator
 
