@@ -4,7 +4,7 @@ This is the upgraded version of [Volume-Profiles-Spicetify-Extension-v1](https:/
 
 This exension is an extension for Spicetify-cli to save a volume to a profile, to load later when needed.
 
-To install it just grab the js in the dist folder. If you want to build it, clone it (or download it) and run
+To install it just grab the js in the dist folder, and load it with spicetify. If you want to build it, clone it (or download it) and run
 
 ```
 npm i
@@ -12,7 +12,8 @@ npm i
 
 ## Preview
 
-#TODO
+![buttons](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2/blob/main/assets/buttons.png)
+![settings](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2/blob/main/assets/settings.png)
 
 ## Notes
 
