@@ -1,5 +1,7 @@
 # Volume Profiles v2
 
+###### Built with [Spicetify Creator](https://github.com/FlafyDev/spicetify-creator). Download from [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace).
+
 [![repo](https://img.shields.io/github/last-commit/notPlancha/Volume-Profiles-Spicetify-Extension-v2)](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
 
 This is the upgraded version of [Volume-Profiles-Spicetify-Extension-v1](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v1), where it's more responsive, more extended, and more Spicy.
@@ -29,7 +31,7 @@ npm i
 
 - Check me out for possibly future extensions, star the repo if you liked it and watch the repo for updates
 
-[![follow me](https://img.shields.io/github/followers/notPlancha?style=social)](https://github.com/notPlancha)]
+[![follow me](https://img.shields.io/github/followers/notPlancha?style=social)](https://github.com/notPlancha)
 
 [![GitHub Repo stars](https://img.shields.io/github/stars/notPlancha/Volume-Profiles-Spicetify-Extension-v2?style=social)](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
 
@@ -37,7 +39,3 @@ npm i
 
 
 - If you have any suggestions, drop it on the [discussions page](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2/discussions) or make a pull request
-
-## Made with Spicetify Creator
-
-- https://github.com/FlafyDev/spotify-css-editor
