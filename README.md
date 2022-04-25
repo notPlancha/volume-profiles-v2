@@ -39,3 +39,5 @@ npm i
 
 
 - If you have any suggestions, drop it on the [discussions page](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2/discussions) or make a pull request
+
+- version 2.1.1
