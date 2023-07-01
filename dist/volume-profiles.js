@@ -1,7 +1,1000 @@
-var volumeDprofiles=(()=>{var l=Object.create,a=Object.defineProperty,c=Object.getOwnPropertyDescriptor,u=Object.getOwnPropertyNames,d=Object.getPrototypeOf,f=Object.prototype.hasOwnProperty,e=(e=>"undefined"!=typeof require?require:"undefined"!=typeof Proxy?new Proxy(e,{get:(e,t)=>("undefined"!=typeof require?require:e)[t]}):e)(function(e){if("react"===e)return Spicetify.React;if("react-dom"===e)return Spicetify.ReactDOM;if("undefined"!=typeof require)return require.apply(this,arguments);throw new Error('Dynamic require of "'+e+'" is not supported')}),t=(e,t)=>function(){return t||(0,e[u(e)[0]])((t={exports:{}}).exports,t),t.exports},n=(e,t,n)=>{n=null!=e?l(d(e)):{};var i=!t&&e&&e.__esModule?n:a(n,"default",{value:e,enumerable:!0}),r=e,o=void 0,s=void 0;if(r&&"object"==typeof r||"function"==typeof r)for(let e of u(r))f.call(i,e)||e===o||a(i,e,{get:()=>r[e],enumerable:!(s=c(r,e))||s.enumerable});return i},i=t({"node_modules/arrive/src/arrive.js"(){!function(c,e,u){"use strict";var i,d,n,t,s,r,l;if(c.MutationObserver&&"undefined"!=typeof HTMLElement)i=0,n=HTMLElement.prototype.matches||HTMLElement.prototype.webkitMatchesSelector||HTMLElement.prototype.mozMatchesSelector||HTMLElement.prototype.msMatchesSelector,d={matchesSelector:function(e,t){return e instanceof HTMLElement&&n.call(e,t)},addMethod:function(e,t,n){var i=e[t];e[t]=function(){return n.length==arguments.length?n.apply(this,arguments):"function"==typeof i?i.apply(this,arguments):void 0}},callCallbacks:function(e,t){t&&t.options.onceOnly&&1==t.firedElems.length&&(e=[e[0]]);for(var n,i=0;n=e[i];i++)n&&n.callback&&n.callback.call(n.elem,n.elem);t&&t.options.onceOnly&&1==t.firedElems.length&&t.me.unbindEventWithSelectorAndCallback.call(t.target,t.selector,t.callback)},checkChildNodesRecursively:function(e,t,n,i){for(var r,o=0;r=e[o];o++)n(r,t,i)&&i.push({callback:t.callback,elem:r}),0<r.childNodes.length&&d.checkChildNodesRecursively(r.childNodes,t,n,i)},mergeArrays:function(e,t){var n,i={};for(n in e)e.hasOwnProperty(n)&&(i[n]=e[n]);for(n in t)t.hasOwnProperty(n)&&(i[n]=t[n]);return i},toElementsArray:function(e){return e=void 0===e||"number"==typeof e.length&&e!==c?e:[e]}},o.prototype.addEvent=function(e,t,n,i){e={target:e,selector:t,options:n,callback:i,firedElems:[]};return this._beforeAdding&&this._beforeAdding(e),this._eventsBucket.push(e),e},o.prototype.removeEvent=function(e){for(var t,n=this._eventsBucket.length-1;t=this._eventsBucket[n];n--)e(t)&&(this._beforeRemoving&&this._beforeRemoving(t),(t=this._eventsBucket.splice(n,1))&&t.length&&(t[0].callback=null))},o.prototype.beforeAdding=function(e){this._beforeAdding=e},o.prototype.beforeRemoving=function(e){this._beforeRemoving=e},t=o,s=function(r,o){var s=new t,l=this,a={fireOnAttributesModification:!1};return s.beforeAdding(function(t){var e,n=t.target,i=(n!==c.document&&n!==c||(n=document.getElementsByTagName("html")[0]),e=new MutationObserver(function(e){o.call(this,e,t)}),r(t.options));e.observe(n,i),t.observer=e,t.me=l}),s.beforeRemoving(function(e){e.observer.disconnect()}),this.bindEvent=function(e,t,n){t=d.mergeArrays(a,t);for(var i=d.toElementsArray(this),r=0;r<i.length;r++)s.addEvent(i[r],e,t,n)},this.unbindEvent=function(){var n=d.toElementsArray(this);s.removeEvent(function(e){for(var t=0;t<n.length;t++)if(this===u||e.target===n[t])return!0;return!1})},this.unbindEventWithSelectorOrCallback=function(n){var i=d.toElementsArray(this),r=n,e="function"==typeof n?function(e){for(var t=0;t<i.length;t++)if((this===u||e.target===i[t])&&e.callback===r)return!0;return!1}:function(e){for(var t=0;t<i.length;t++)if((this===u||e.target===i[t])&&e.selector===n)return!0;return!1};s.removeEvent(e)},this.unbindEventWithSelectorAndCallback=function(n,i){var r=d.toElementsArray(this);s.removeEvent(function(e){for(var t=0;t<r.length;t++)if((this===u||e.target===r[t])&&e.selector===n&&e.callback===i)return!0;return!1})},this},r=new function(){var a={fireOnAttributesModification:!1,onceOnly:!1,existing:!1};function o(e,t,n){return!(!d.matchesSelector(e,t.selector)||(e._id===u&&(e._id=i++),-1!=t.firedElems.indexOf(e._id)))&&(t.firedElems.push(e._id),!0)}var c=(r=new s(function(e){var t={attributes:!1,childList:!0,subtree:!0};return e.fireOnAttributesModification&&(t.attributes=!0),t},function(e,r){e.forEach(function(e){var t=e.addedNodes,n=e.target,i=[];null!==t&&0<t.length?d.checkChildNodesRecursively(t,r,o,i):"attributes"===e.type&&o(n,r)&&i.push({callback:r.callback,elem:n}),d.callCallbacks(i,r)})})).bindEvent;return r.bindEvent=function(e,t,n){t=void 0===n?(n=t,a):d.mergeArrays(a,t);var i=d.toElementsArray(this);if(t.existing){for(var r=[],o=0;o<i.length;o++)for(var s=i[o].querySelectorAll(e),l=0;l<s.length;l++)r.push({callback:n,elem:s[l]});if(t.onceOnly&&r.length)return n.call(r[0].elem,r[0].elem);setTimeout(d.callCallbacks,1,r)}c.call(this,e,t,n)},r},l=new function(){var i={};function r(e,t){return d.matchesSelector(e,t.selector)}var o=(l=new s(function(){return{childList:!0,subtree:!0}},function(e,n){e.forEach(function(e){var e=e.removedNodes,t=[];null!==e&&0<e.length&&d.checkChildNodesRecursively(e,n,r,t),d.callCallbacks(t,n)})})).bindEvent;return l.bindEvent=function(e,t,n){t=void 0===n?(n=t,i):d.mergeArrays(i,t),o.call(this,e,t,n)},l},e&&f(e.fn),f(HTMLElement.prototype),f(NodeList.prototype),f(HTMLCollection.prototype),f(HTMLDocument.prototype),f(Window.prototype),e={},a(r,e,"unbindAllArrive"),a(l,e,"unbindAllLeave");function o(){this._eventsBucket=[],this._beforeAdding=null,this._beforeRemoving=null}function a(e,t,n){d.addMethod(t,n,e.unbindEvent),d.addMethod(t,n,e.unbindEventWithSelectorOrCallback),d.addMethod(t,n,e.unbindEventWithSelectorAndCallback)}function f(e){e.arrive=r.bindEvent,a(r,e,"unbindArrive"),e.leave=l.bindEvent,a(l,e,"unbindLeave")}}(window,"undefined"==typeof jQuery?null:jQuery,void 0)}}),r=n(t({"node_modules/umbrellajs/umbrella.min.js"(e,t){function l(e,t){return this instanceof l?e instanceof l?e:((e="string"==typeof e?this.select(e,t):e)&&e.nodeName&&(e=[e]),void(this.nodes=this.slice(e))):new l(e,t)}(l.prototype={get length(){return this.nodes.length}}).nodes=[],l.prototype.addClass=function(){return this.eacharg(arguments,function(e,t){e.classList.add(t)})},l.prototype.adjacent=function(r,e,o){return"number"==typeof e&&(e=0===e?[]:new Array(e).join().split(",").map(Number.call,Number)),this.each(function(n,i){var t=document.createDocumentFragment();l(e||{}).map(function(e,t){return"string"==typeof(t="function"==typeof r?r.call(this,e,t,n,i):r)?this.generate(t):l(t)}).each(function(e){this.isInPage(e)?t.appendChild(l(e).clone().first()):t.appendChild(e)}),o.call(this,n,t)})},l.prototype.after=function(e,t){return this.adjacent(e,t,function(e,t){e.parentNode.insertBefore(t,e.nextSibling)})},l.prototype.append=function(e,t){return this.adjacent(e,t,function(e,t){e.appendChild(t)})},l.prototype.args=function(e,t,n){return(e="string"!=typeof(e="function"==typeof e?e(t,n):e)?this.slice(e).map(this.str(t,n)):e).toString().split(/[\s,]+/).filter(function(e){return e.length})},l.prototype.array=function(r){var o=this;return this.nodes.reduce(function(e,t,n){var i;return r?(i="string"==typeof(i=r.call(o,t,n)||!1)?l(i):i)instanceof l&&(i=i.nodes):i=t.innerHTML,e.concat(!1!==i?i:[])},[])},l.prototype.attr=function(e,t,i){return i=i?"data-":"",this.pairs(e,t,function(e,t){return e.getAttribute(i+t)},function(e,t,n){n?e.setAttribute(i+t,n):e.removeAttribute(i+t)})},l.prototype.before=function(e,t){return this.adjacent(e,t,function(e,t){e.parentNode.insertBefore(t,e)})},l.prototype.children=function(e){return this.map(function(e){return this.slice(e.children)}).filter(e)},l.prototype.clone=function(){return this.map(function(e,t){var n=e.cloneNode(!0),i=this.getAll(n);return this.getAll(e).each(function(e,t){for(var n in this.mirror)this.mirror[n]&&this.mirror[n](e,i.nodes[t])}),n})},l.prototype.getAll=function(e){return l([e].concat(l("*",e).nodes))},(l.prototype.mirror={}).events=function(e,t){if(e._e)for(var n in e._e)e._e[n].forEach(function(e){l(t).on(n,e.callback)})},l.prototype.mirror.select=function(e,t){l(e).is("select")&&(t.value=e.value)},l.prototype.mirror.textarea=function(e,t){l(e).is("textarea")&&(t.value=e.value)},l.prototype.closest=function(t){return this.map(function(e){do{if(l(e).is(t))return e}while((e=e.parentNode)&&e!==document)})},l.prototype.data=function(e,t){return this.attr(e,t,!0)},l.prototype.each=function(e){return this.nodes.forEach(e.bind(this)),this},l.prototype.eacharg=function(n,i){return this.each(function(t,e){this.args(n,t,e).forEach(function(e){i.call(this,t,e)},this)})},l.prototype.empty=function(){return this.each(function(e){for(;e.firstChild;)e.removeChild(e.firstChild)})},l.prototype.filter=function(t){return l(this.nodes.filter(t instanceof l?function(e){return-1!==t.nodes.indexOf(e)}:"function"==typeof t?t:function(e){return e.matches=e.matches||e.msMatchesSelector||e.webkitMatchesSelector,e.matches(t||"*")}))},l.prototype.find=function(t){return this.map(function(e){return l(t||"*",e)})},l.prototype.first=function(){return this.nodes[0]||!1},l.prototype.generate=function(e){return/^\s*<tr[> ]/.test(e)?l(document.createElement("table")).html(e).children().children().nodes:/^\s*<t(h|d)[> ]/.test(e)?l(document.createElement("table")).html(e).children().children().children().nodes:/^\s*</.test(e)?l(document.createElement("div")).html(e).children().nodes:document.createTextNode(e)},l.prototype.handle=function(){var e=this.slice(arguments).map(function(t){return"function"==typeof t?function(e){e.preventDefault(),t.apply(this,arguments)}:t},this);return this.on.apply(this,e)},l.prototype.hasClass=function(){return this.is("."+this.args(arguments).join("."))},l.prototype.html=function(t){return void 0===t?this.first().innerHTML||"":this.each(function(e){e.innerHTML=t})},l.prototype.is=function(e){return 0<this.filter(e).length},l.prototype.isInPage=function(e){return e!==document.body&&document.body.contains(e)},l.prototype.last=function(){return this.nodes[this.length-1]||!1},l.prototype.map=function(e){return e?l(this.array(e)).unique():this},l.prototype.not=function(t){return this.filter(function(e){return!l(e).is(t||!0)})},l.prototype.off=function(e,t,n){var i=null==t&&null==n,r=null,o=t;return"string"==typeof t&&(r=t,o=n),this.eacharg(e,function(t,n){l(t._e?t._e[n]:[]).each(function(e){(i||e.orig_callback===o&&e.selector===r)&&t.removeEventListener(n,e.callback)})})},l.prototype.on=function(e,t,r){function o(e,t){try{Object.defineProperty(e,"currentTarget",{value:t,configurable:!0})}catch(e){}}var s=null,n=t;function i(e){return t.apply(this,[e].concat(e.detail||[]))}return"string"==typeof t&&(s=t,n=r,t=function(n){var i=arguments;l(n.currentTarget).find(s).each(function(e){var t;e.contains(n.target)&&(t=n.currentTarget,o(n,e),r.apply(e,i),o(n,t))})}),this.eacharg(e,function(e,t){e.addEventListener(t,i),e._e=e._e||{},e._e[t]=e._e[t]||[],e._e[t].push({callback:i,orig_callback:n,selector:s})})},l.prototype.pairs=function(i,e,t,r){var n;return void 0!==e&&(n=i,(i={})[n]=e),"object"==typeof i?this.each(function(e,t){for(var n in i)"function"==typeof i[n]?r(e,n,i[n](e,t)):r(e,n,i[n])}):this.length?t(this.first(),i):""},l.prototype.param=function(t){return Object.keys(t).map(function(e){return this.uri(e)+"="+this.uri(t[e])}.bind(this)).join("&")},l.prototype.parent=function(e){return this.map(function(e){return e.parentNode}).filter(e)},l.prototype.prepend=function(e,t){return this.adjacent(e,t,function(e,t){e.insertBefore(t,e.firstChild)})},l.prototype.remove=function(){return this.each(function(e){e.parentNode&&e.parentNode.removeChild(e)})},l.prototype.removeClass=function(){return this.eacharg(arguments,function(e,t){e.classList.remove(t)})},l.prototype.replace=function(e,t){var n=[];return this.adjacent(e,t,function(e,t){n=n.concat(this.slice(t.children)),e.parentNode.replaceChild(t,e)}),l(n)},l.prototype.scroll=function(){return this.first().scrollIntoView({behavior:"smooth"}),this},l.prototype.select=function(e,t){return e=e.replace(/^\s*/,"").replace(/\s*$/,""),/^</.test(e)?l().generate(e):(t||document).querySelectorAll(e)},l.prototype.serialize=function(){var i=this;return this.slice(this.first().elements).reduce(function(t,n){return!n.name||n.disabled||"file"===n.type||/(checkbox|radio)/.test(n.type)&&!n.checked?t:"select-multiple"===n.type?(l(n.options).each(function(e){e.selected&&(t+="&"+i.uri(n.name)+"="+i.uri(e.value))}),t):t+"&"+i.uri(n.name)+"="+i.uri(n.value)},"").slice(1)},l.prototype.siblings=function(e){return this.parent().children(e).not(this)},l.prototype.size=function(){return this.first().getBoundingClientRect()},l.prototype.slice=function(e){return e&&0!==e.length&&"string"!=typeof e&&"[object Function]"!==e.toString()?e.length?[].slice.call(e.nodes||e):[e]:[]},l.prototype.str=function(t,n){return function(e){return"function"==typeof e?e.call(this,t,n):e.toString()}},l.prototype.text=function(t){return void 0===t?this.first().textContent||"":this.each(function(e){e.textContent=t})},l.prototype.toggleClass=function(e,t){return!!t===t?this[t?"addClass":"removeClass"](e):this.eacharg(e,function(e,t){e.classList.toggle(t)})},l.prototype.trigger=function(e){var r=this.slice(arguments).slice(1);return this.eacharg(e,function(e,t){var n,i={bubbles:!0,cancelable:!0,detail:r};try{n=new window.CustomEvent(t,i)}catch(e){(n=document.createEvent("CustomEvent")).initCustomEvent(t,!0,!0,r)}e.dispatchEvent(n)})},l.prototype.unique=function(){return l(this.nodes.reduce(function(e,t){return null!=t&&!1!==t&&-1===e.indexOf(t)?e.concat(t):e},[]))},l.prototype.uri=function(e){return encodeURIComponent(e).replace(/!/g,"%21").replace(/'/g,"%27").replace(/\(/g,"%28").replace(/\)/g,"%29").replace(/\*/g,"%2A").replace(/%20/g,"+")},l.prototype.wrap=function(e){return this.map(function(t){return l(e).each(function(e){!function(e){for(;e.firstElementChild;)e=e.firstElementChild;return l(e)}(e).append(t.cloneNode(!0)),t.parentNode.replaceChild(e,t)})})},"object"==typeof t&&t.exports&&(t.exports=l,t.exports.u=l)}})()),s=n(e("react")),o=n(e("react-dom")),p={settingsContainer:"settings-module__settingsContainer___e9wxn_volumeDprofiles",heading:"settings-module__heading___AnER-_volumeDprofiles",description:"settings-module__description___dP4fR_volumeDprofiles",inputWrapper:"settings-module__inputWrapper___LgOrw_volumeDprofiles"},h=(i(),class{static get ToggleSettings(){var e=Spicetify.LocalStorage.get(h.ToggleSettingsId);return"true"!=e&&"false"!=e?(Spicetify.LocalStorage.set(h.ToggleSettingsId,"true"),!0):"true"==e}static set ToggleSettings(e){Spicetify.LocalStorage.set(h.ToggleSettingsId,e.toString())}constructor(e,t,n){this._id=e;let i="";switch(n){case"high":i=h.icons.high;break;case"medium":i=h.icons.medium;break;case"low":i=h.icons.low;break;case"mute":i=h.icons.mute;break;case"speakerOnly":i=h.icons.speakerOnly}e=`<button class='control-button' aria-label='Volume Profile ${this._id}' aria-describedby="volume-icon">
+var volumeDprofiles = (() => {
+  var __create = Object.create;
+  var __defProp = Object.defineProperty;
+  var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
+  var __getOwnPropNames = Object.getOwnPropertyNames;
+  var __getProtoOf = Object.getPrototypeOf;
+  var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __commonJS = (cb, mod) => function __require() {
+    return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
+  };
+  var __copyProps = (to, from, except, desc) => {
+    if (from && typeof from === "object" || typeof from === "function") {
+      for (let key of __getOwnPropNames(from))
+        if (!__hasOwnProp.call(to, key) && key !== except)
+          __defProp(to, key, { get: () => from[key], enumerable: !(desc = __getOwnPropDesc(from, key)) || desc.enumerable });
+    }
+    return to;
+  };
+  var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target, mod));
+
+  // node_modules/umbrellajs/umbrella.min.js
+  var require_umbrella_min = __commonJS({
+    "node_modules/umbrellajs/umbrella.min.js"(exports, module) {
+      var u2 = function(t, e) {
+        return this instanceof u2 ? t instanceof u2 ? t : ((t = typeof t == "string" ? this.select(t, e) : t) && t.nodeName && (t = [t]), void (this.nodes = this.slice(t))) : new u2(t, e);
+      };
+      u2.prototype = { get length() {
+        return this.nodes.length;
+      } }, u2.prototype.nodes = [], u2.prototype.addClass = function() {
+        return this.eacharg(arguments, function(t, e) {
+          t.classList.add(e);
+        });
+      }, u2.prototype.adjacent = function(o, t, i) {
+        return typeof t == "number" && (t = t === 0 ? [] : new Array(t).join().split(",").map(Number.call, Number)), this.each(function(n, r) {
+          var e = document.createDocumentFragment();
+          u2(t || {}).map(function(t2, e2) {
+            e2 = typeof o == "function" ? o.call(this, t2, e2, n, r) : o;
+            return typeof e2 == "string" ? this.generate(e2) : u2(e2);
+          }).each(function(t2) {
+            this.isInPage(t2) ? e.appendChild(u2(t2).clone().first()) : e.appendChild(t2);
+          }), i.call(this, n, e);
+        });
+      }, u2.prototype.after = function(t, e) {
+        return this.adjacent(t, e, function(t2, e2) {
+          t2.parentNode.insertBefore(e2, t2.nextSibling);
+        });
+      }, u2.prototype.append = function(t, e) {
+        return this.adjacent(t, e, function(t2, e2) {
+          t2.appendChild(e2);
+        });
+      }, u2.prototype.args = function(t, e, n) {
+        return (t = typeof (t = typeof t == "function" ? t(e, n) : t) != "string" ? this.slice(t).map(this.str(e, n)) : t).toString().split(/[\s,]+/).filter(function(t2) {
+          return t2.length;
+        });
+      }, u2.prototype.array = function(o) {
+        var i = this;
+        return this.nodes.reduce(function(t, e, n) {
+          var r;
+          return o ? (r = typeof (r = (r = o.call(i, e, n)) || false) == "string" ? u2(r) : r) instanceof u2 && (r = r.nodes) : r = e.innerHTML, t.concat(r !== false ? r : []);
+        }, []);
+      }, u2.prototype.attr = function(t, e, r) {
+        return r = r ? "data-" : "", this.pairs(t, e, function(t2, e2) {
+          return t2.getAttribute(r + e2);
+        }, function(t2, e2, n) {
+          n ? t2.setAttribute(r + e2, n) : t2.removeAttribute(r + e2);
+        });
+      }, u2.prototype.before = function(t, e) {
+        return this.adjacent(t, e, function(t2, e2) {
+          t2.parentNode.insertBefore(e2, t2);
+        });
+      }, u2.prototype.children = function(t) {
+        return this.map(function(t2) {
+          return this.slice(t2.children);
+        }).filter(t);
+      }, u2.prototype.clone = function() {
+        return this.map(function(t, e) {
+          var n = t.cloneNode(true), r = this.getAll(n);
+          return this.getAll(t).each(function(t2, e2) {
+            for (var n2 in this.mirror)
+              this.mirror[n2] && this.mirror[n2](t2, r.nodes[e2]);
+          }), n;
+        });
+      }, u2.prototype.getAll = function(t) {
+        return u2([t].concat(u2("*", t).nodes));
+      }, u2.prototype.mirror = {}, u2.prototype.mirror.events = function(t, e) {
+        if (t._e)
+          for (var n in t._e)
+            t._e[n].forEach(function(t2) {
+              u2(e).on(n, t2.callback);
+            });
+      }, u2.prototype.mirror.select = function(t, e) {
+        u2(t).is("select") && (e.value = t.value);
+      }, u2.prototype.mirror.textarea = function(t, e) {
+        u2(t).is("textarea") && (e.value = t.value);
+      }, u2.prototype.closest = function(e) {
+        return this.map(function(t) {
+          do {
+            if (u2(t).is(e))
+              return t;
+          } while ((t = t.parentNode) && t !== document);
+        });
+      }, u2.prototype.data = function(t, e) {
+        return this.attr(t, e, true);
+      }, u2.prototype.each = function(t) {
+        return this.nodes.forEach(t.bind(this)), this;
+      }, u2.prototype.eacharg = function(n, r) {
+        return this.each(function(e, t) {
+          this.args(n, e, t).forEach(function(t2) {
+            r.call(this, e, t2);
+          }, this);
+        });
+      }, u2.prototype.empty = function() {
+        return this.each(function(t) {
+          for (; t.firstChild; )
+            t.removeChild(t.firstChild);
+        });
+      }, u2.prototype.filter = function(e) {
+        var t = e instanceof u2 ? function(t2) {
+          return e.nodes.indexOf(t2) !== -1;
+        } : typeof e == "function" ? e : function(t2) {
+          return t2.matches = t2.matches || t2.msMatchesSelector || t2.webkitMatchesSelector, t2.matches(e || "*");
+        };
+        return u2(this.nodes.filter(t));
+      }, u2.prototype.find = function(e) {
+        return this.map(function(t) {
+          return u2(e || "*", t);
+        });
+      }, u2.prototype.first = function() {
+        return this.nodes[0] || false;
+      }, u2.prototype.generate = function(t) {
+        return /^\s*<tr[> ]/.test(t) ? u2(document.createElement("table")).html(t).children().children().nodes : /^\s*<t(h|d)[> ]/.test(t) ? u2(document.createElement("table")).html(t).children().children().children().nodes : /^\s*</.test(t) ? u2(document.createElement("div")).html(t).children().nodes : document.createTextNode(t);
+      }, u2.prototype.handle = function() {
+        var t = this.slice(arguments).map(function(e) {
+          return typeof e == "function" ? function(t2) {
+            t2.preventDefault(), e.apply(this, arguments);
+          } : e;
+        }, this);
+        return this.on.apply(this, t);
+      }, u2.prototype.hasClass = function() {
+        return this.is("." + this.args(arguments).join("."));
+      }, u2.prototype.html = function(e) {
+        return e === void 0 ? this.first().innerHTML || "" : this.each(function(t) {
+          t.innerHTML = e;
+        });
+      }, u2.prototype.is = function(t) {
+        return 0 < this.filter(t).length;
+      }, u2.prototype.isInPage = function(t) {
+        return t !== document.body && document.body.contains(t);
+      }, u2.prototype.last = function() {
+        return this.nodes[this.length - 1] || false;
+      }, u2.prototype.map = function(t) {
+        return t ? u2(this.array(t)).unique() : this;
+      }, u2.prototype.not = function(e) {
+        return this.filter(function(t) {
+          return !u2(t).is(e || true);
+        });
+      }, u2.prototype.off = function(t, e, n) {
+        var r = e == null && n == null, o = null, i = e;
+        return typeof e == "string" && (o = e, i = n), this.eacharg(t, function(e2, n2) {
+          u2(e2._e ? e2._e[n2] : []).each(function(t2) {
+            (r || t2.orig_callback === i && t2.selector === o) && e2.removeEventListener(n2, t2.callback);
+          });
+        });
+      }, u2.prototype.on = function(t, e, o) {
+        function i(t2, e2) {
+          try {
+            Object.defineProperty(t2, "currentTarget", { value: e2, configurable: true });
+          } catch (t3) {
+          }
+        }
+        var c = null, n = e;
+        typeof e == "string" && (c = e, n = o, e = function(n2) {
+          var r2 = arguments;
+          u2(n2.currentTarget).find(c).each(function(t2) {
+            var e2;
+            t2.contains(n2.target) && (e2 = n2.currentTarget, i(n2, t2), o.apply(t2, r2), i(n2, e2));
+          });
+        });
+        function r(t2) {
+          return e.apply(this, [t2].concat(t2.detail || []));
+        }
+        return this.eacharg(t, function(t2, e2) {
+          t2.addEventListener(e2, r), t2._e = t2._e || {}, t2._e[e2] = t2._e[e2] || [], t2._e[e2].push({ callback: r, orig_callback: n, selector: c });
+        });
+      }, u2.prototype.pairs = function(r, t, e, o) {
+        var n;
+        return t !== void 0 && (n = r, (r = {})[n] = t), typeof r == "object" ? this.each(function(t2, e2) {
+          for (var n2 in r)
+            typeof r[n2] == "function" ? o(t2, n2, r[n2](t2, e2)) : o(t2, n2, r[n2]);
+        }) : this.length ? e(this.first(), r) : "";
+      }, u2.prototype.param = function(e) {
+        return Object.keys(e).map(function(t) {
+          return this.uri(t) + "=" + this.uri(e[t]);
+        }.bind(this)).join("&");
+      }, u2.prototype.parent = function(t) {
+        return this.map(function(t2) {
+          return t2.parentNode;
+        }).filter(t);
+      }, u2.prototype.prepend = function(t, e) {
+        return this.adjacent(t, e, function(t2, e2) {
+          t2.insertBefore(e2, t2.firstChild);
+        });
+      }, u2.prototype.remove = function() {
+        return this.each(function(t) {
+          t.parentNode && t.parentNode.removeChild(t);
+        });
+      }, u2.prototype.removeClass = function() {
+        return this.eacharg(arguments, function(t, e) {
+          t.classList.remove(e);
+        });
+      }, u2.prototype.replace = function(t, e) {
+        var n = [];
+        return this.adjacent(t, e, function(t2, e2) {
+          n = n.concat(this.slice(e2.children)), t2.parentNode.replaceChild(e2, t2);
+        }), u2(n);
+      }, u2.prototype.scroll = function() {
+        return this.first().scrollIntoView({ behavior: "smooth" }), this;
+      }, u2.prototype.select = function(t, e) {
+        return t = t.replace(/^\s*/, "").replace(/\s*$/, ""), /^</.test(t) ? u2().generate(t) : (e || document).querySelectorAll(t);
+      }, u2.prototype.serialize = function() {
+        var r = this;
+        return this.slice(this.first().elements).reduce(function(e, n) {
+          return !n.name || n.disabled || n.type === "file" || /(checkbox|radio)/.test(n.type) && !n.checked ? e : n.type === "select-multiple" ? (u2(n.options).each(function(t) {
+            t.selected && (e += "&" + r.uri(n.name) + "=" + r.uri(t.value));
+          }), e) : e + "&" + r.uri(n.name) + "=" + r.uri(n.value);
+        }, "").slice(1);
+      }, u2.prototype.siblings = function(t) {
+        return this.parent().children(t).not(this);
+      }, u2.prototype.size = function() {
+        return this.first().getBoundingClientRect();
+      }, u2.prototype.slice = function(t) {
+        return t && t.length !== 0 && typeof t != "string" && t.toString() !== "[object Function]" ? t.length ? [].slice.call(t.nodes || t) : [t] : [];
+      }, u2.prototype.str = function(e, n) {
+        return function(t) {
+          return typeof t == "function" ? t.call(this, e, n) : t.toString();
+        };
+      }, u2.prototype.text = function(e) {
+        return e === void 0 ? this.first().textContent || "" : this.each(function(t) {
+          t.textContent = e;
+        });
+      }, u2.prototype.toggleClass = function(t, e) {
+        return !!e === e ? this[e ? "addClass" : "removeClass"](t) : this.eacharg(t, function(t2, e2) {
+          t2.classList.toggle(e2);
+        });
+      }, u2.prototype.trigger = function(t) {
+        var o = this.slice(arguments).slice(1);
+        return this.eacharg(t, function(t2, e) {
+          var n, r = { bubbles: true, cancelable: true, detail: o };
+          try {
+            n = new window.CustomEvent(e, r);
+          } catch (t3) {
+            (n = document.createEvent("CustomEvent")).initCustomEvent(e, true, true, o);
+          }
+          t2.dispatchEvent(n);
+        });
+      }, u2.prototype.unique = function() {
+        return u2(this.nodes.reduce(function(t, e) {
+          return e != null && e !== false && t.indexOf(e) === -1 ? t.concat(e) : t;
+        }, []));
+      }, u2.prototype.uri = function(t) {
+        return encodeURIComponent(t).replace(/!/g, "%21").replace(/'/g, "%27").replace(/\(/g, "%28").replace(/\)/g, "%29").replace(/\*/g, "%2A").replace(/%20/g, "+");
+      }, u2.prototype.wrap = function(t) {
+        return this.map(function(e) {
+          return u2(t).each(function(t2) {
+            !function(t3) {
+              for (; t3.firstElementChild; )
+                t3 = t3.firstElementChild;
+              return u2(t3);
+            }(t2).append(e.cloneNode(true)), e.parentNode.replaceChild(t2, e);
+          });
+        });
+      }, typeof module == "object" && module.exports && (module.exports = u2, module.exports.u = u2);
+    }
+  });
+
+  // external-global-plugin:react
+  var require_react = __commonJS({
+    "external-global-plugin:react"(exports, module) {
+      module.exports = Spicetify.React;
+    }
+  });
+
+  // external-global-plugin:react-dom
+  var require_react_dom = __commonJS({
+    "external-global-plugin:react-dom"(exports, module) {
+      module.exports = Spicetify.ReactDOM;
+    }
+  });
+
+  // node_modules/arrive/src/arrive.js
+  var require_arrive = __commonJS({
+    "node_modules/arrive/src/arrive.js"() {
+      var Arrive = function(window2, $, undefined2) {
+        "use strict";
+        if (!window2.MutationObserver || typeof HTMLElement === "undefined") {
+          return;
+        }
+        var arriveUniqueId = 0;
+        var utils = function() {
+          var matches = HTMLElement.prototype.matches || HTMLElement.prototype.webkitMatchesSelector || HTMLElement.prototype.mozMatchesSelector || HTMLElement.prototype.msMatchesSelector;
+          return {
+            matchesSelector: function(elem, selector) {
+              return elem instanceof HTMLElement && matches.call(elem, selector);
+            },
+            addMethod: function(object, name, fn) {
+              var old = object[name];
+              object[name] = function() {
+                if (fn.length == arguments.length) {
+                  return fn.apply(this, arguments);
+                } else if (typeof old == "function") {
+                  return old.apply(this, arguments);
+                }
+              };
+            },
+            callCallbacks: function(callbacksToBeCalled, registrationData) {
+              if (registrationData && registrationData.options.onceOnly && registrationData.firedElems.length == 1) {
+                callbacksToBeCalled = [callbacksToBeCalled[0]];
+              }
+              for (var i = 0, cb; cb = callbacksToBeCalled[i]; i++) {
+                if (cb && cb.callback) {
+                  cb.callback.call(cb.elem, cb.elem);
+                }
+              }
+              if (registrationData && registrationData.options.onceOnly && registrationData.firedElems.length == 1) {
+                registrationData.me.unbindEventWithSelectorAndCallback.call(registrationData.target, registrationData.selector, registrationData.callback);
+              }
+            },
+            checkChildNodesRecursively: function(nodes, registrationData, matchFunc, callbacksToBeCalled) {
+              for (var i = 0, node; node = nodes[i]; i++) {
+                if (matchFunc(node, registrationData, callbacksToBeCalled)) {
+                  callbacksToBeCalled.push({ callback: registrationData.callback, elem: node });
+                }
+                if (node.childNodes.length > 0) {
+                  utils.checkChildNodesRecursively(node.childNodes, registrationData, matchFunc, callbacksToBeCalled);
+                }
+              }
+            },
+            mergeArrays: function(firstArr, secondArr) {
+              var options = {}, attrName;
+              for (attrName in firstArr) {
+                if (firstArr.hasOwnProperty(attrName)) {
+                  options[attrName] = firstArr[attrName];
+                }
+              }
+              for (attrName in secondArr) {
+                if (secondArr.hasOwnProperty(attrName)) {
+                  options[attrName] = secondArr[attrName];
+                }
+              }
+              return options;
+            },
+            toElementsArray: function(elements) {
+              if (typeof elements !== "undefined" && (typeof elements.length !== "number" || elements === window2)) {
+                elements = [elements];
+              }
+              return elements;
+            }
+          };
+        }();
+        var EventsBucket = function() {
+          var EventsBucket2 = function() {
+            this._eventsBucket = [];
+            this._beforeAdding = null;
+            this._beforeRemoving = null;
+          };
+          EventsBucket2.prototype.addEvent = function(target, selector, options, callback) {
+            var newEvent = {
+              target,
+              selector,
+              options,
+              callback,
+              firedElems: []
+            };
+            if (this._beforeAdding) {
+              this._beforeAdding(newEvent);
+            }
+            this._eventsBucket.push(newEvent);
+            return newEvent;
+          };
+          EventsBucket2.prototype.removeEvent = function(compareFunction) {
+            for (var i = this._eventsBucket.length - 1, registeredEvent; registeredEvent = this._eventsBucket[i]; i--) {
+              if (compareFunction(registeredEvent)) {
+                if (this._beforeRemoving) {
+                  this._beforeRemoving(registeredEvent);
+                }
+                var removedEvents = this._eventsBucket.splice(i, 1);
+                if (removedEvents && removedEvents.length) {
+                  removedEvents[0].callback = null;
+                }
+              }
+            }
+          };
+          EventsBucket2.prototype.beforeAdding = function(beforeAdding) {
+            this._beforeAdding = beforeAdding;
+          };
+          EventsBucket2.prototype.beforeRemoving = function(beforeRemoving) {
+            this._beforeRemoving = beforeRemoving;
+          };
+          return EventsBucket2;
+        }();
+        var MutationEvents = function(getObserverConfig, onMutation) {
+          var eventsBucket = new EventsBucket(), me = this;
+          var defaultOptions = {
+            fireOnAttributesModification: false
+          };
+          eventsBucket.beforeAdding(function(registrationData) {
+            var target = registrationData.target, observer;
+            if (target === window2.document || target === window2) {
+              target = document.getElementsByTagName("html")[0];
+            }
+            observer = new MutationObserver(function(e) {
+              onMutation.call(this, e, registrationData);
+            });
+            var config = getObserverConfig(registrationData.options);
+            observer.observe(target, config);
+            registrationData.observer = observer;
+            registrationData.me = me;
+          });
+          eventsBucket.beforeRemoving(function(eventData) {
+            eventData.observer.disconnect();
+          });
+          this.bindEvent = function(selector, options, callback) {
+            options = utils.mergeArrays(defaultOptions, options);
+            var elements = utils.toElementsArray(this);
+            for (var i = 0; i < elements.length; i++) {
+              eventsBucket.addEvent(elements[i], selector, options, callback);
+            }
+          };
+          this.unbindEvent = function() {
+            var elements = utils.toElementsArray(this);
+            eventsBucket.removeEvent(function(eventObj) {
+              for (var i = 0; i < elements.length; i++) {
+                if (this === undefined2 || eventObj.target === elements[i]) {
+                  return true;
+                }
+              }
+              return false;
+            });
+          };
+          this.unbindEventWithSelectorOrCallback = function(selector) {
+            var elements = utils.toElementsArray(this), callback = selector, compareFunction;
+            if (typeof selector === "function") {
+              compareFunction = function(eventObj) {
+                for (var i = 0; i < elements.length; i++) {
+                  if ((this === undefined2 || eventObj.target === elements[i]) && eventObj.callback === callback) {
+                    return true;
+                  }
+                }
+                return false;
+              };
+            } else {
+              compareFunction = function(eventObj) {
+                for (var i = 0; i < elements.length; i++) {
+                  if ((this === undefined2 || eventObj.target === elements[i]) && eventObj.selector === selector) {
+                    return true;
+                  }
+                }
+                return false;
+              };
+            }
+            eventsBucket.removeEvent(compareFunction);
+          };
+          this.unbindEventWithSelectorAndCallback = function(selector, callback) {
+            var elements = utils.toElementsArray(this);
+            eventsBucket.removeEvent(function(eventObj) {
+              for (var i = 0; i < elements.length; i++) {
+                if ((this === undefined2 || eventObj.target === elements[i]) && eventObj.selector === selector && eventObj.callback === callback) {
+                  return true;
+                }
+              }
+              return false;
+            });
+          };
+          return this;
+        };
+        var ArriveEvents = function() {
+          var arriveDefaultOptions = {
+            fireOnAttributesModification: false,
+            onceOnly: false,
+            existing: false
+          };
+          function getArriveObserverConfig(options) {
+            var config = {
+              attributes: false,
+              childList: true,
+              subtree: true
+            };
+            if (options.fireOnAttributesModification) {
+              config.attributes = true;
+            }
+            return config;
+          }
+          function onArriveMutation(mutations, registrationData) {
+            mutations.forEach(function(mutation) {
+              var newNodes = mutation.addedNodes, targetNode = mutation.target, callbacksToBeCalled = [], node;
+              if (newNodes !== null && newNodes.length > 0) {
+                utils.checkChildNodesRecursively(newNodes, registrationData, nodeMatchFunc, callbacksToBeCalled);
+              } else if (mutation.type === "attributes") {
+                if (nodeMatchFunc(targetNode, registrationData, callbacksToBeCalled)) {
+                  callbacksToBeCalled.push({ callback: registrationData.callback, elem: targetNode });
+                }
+              }
+              utils.callCallbacks(callbacksToBeCalled, registrationData);
+            });
+          }
+          function nodeMatchFunc(node, registrationData, callbacksToBeCalled) {
+            if (utils.matchesSelector(node, registrationData.selector)) {
+              if (node._id === undefined2) {
+                node._id = arriveUniqueId++;
+              }
+              if (registrationData.firedElems.indexOf(node._id) == -1) {
+                registrationData.firedElems.push(node._id);
+                return true;
+              }
+            }
+            return false;
+          }
+          arriveEvents = new MutationEvents(getArriveObserverConfig, onArriveMutation);
+          var mutationBindEvent = arriveEvents.bindEvent;
+          arriveEvents.bindEvent = function(selector, options, callback) {
+            if (typeof callback === "undefined") {
+              callback = options;
+              options = arriveDefaultOptions;
+            } else {
+              options = utils.mergeArrays(arriveDefaultOptions, options);
+            }
+            var elements = utils.toElementsArray(this);
+            if (options.existing) {
+              var existing = [];
+              for (var i = 0; i < elements.length; i++) {
+                var nodes = elements[i].querySelectorAll(selector);
+                for (var j = 0; j < nodes.length; j++) {
+                  existing.push({ callback, elem: nodes[j] });
+                }
+              }
+              if (options.onceOnly && existing.length) {
+                return callback.call(existing[0].elem, existing[0].elem);
+              }
+              setTimeout(utils.callCallbacks, 1, existing);
+            }
+            mutationBindEvent.call(this, selector, options, callback);
+          };
+          return arriveEvents;
+        };
+        var LeaveEvents = function() {
+          var leaveDefaultOptions = {};
+          function getLeaveObserverConfig() {
+            var config = {
+              childList: true,
+              subtree: true
+            };
+            return config;
+          }
+          function onLeaveMutation(mutations, registrationData) {
+            mutations.forEach(function(mutation) {
+              var removedNodes = mutation.removedNodes, callbacksToBeCalled = [];
+              if (removedNodes !== null && removedNodes.length > 0) {
+                utils.checkChildNodesRecursively(removedNodes, registrationData, nodeMatchFunc, callbacksToBeCalled);
+              }
+              utils.callCallbacks(callbacksToBeCalled, registrationData);
+            });
+          }
+          function nodeMatchFunc(node, registrationData) {
+            return utils.matchesSelector(node, registrationData.selector);
+          }
+          leaveEvents = new MutationEvents(getLeaveObserverConfig, onLeaveMutation);
+          var mutationBindEvent = leaveEvents.bindEvent;
+          leaveEvents.bindEvent = function(selector, options, callback) {
+            if (typeof callback === "undefined") {
+              callback = options;
+              options = leaveDefaultOptions;
+            } else {
+              options = utils.mergeArrays(leaveDefaultOptions, options);
+            }
+            mutationBindEvent.call(this, selector, options, callback);
+          };
+          return leaveEvents;
+        };
+        var arriveEvents = new ArriveEvents(), leaveEvents = new LeaveEvents();
+        function exposeUnbindApi(eventObj, exposeTo, funcName) {
+          utils.addMethod(exposeTo, funcName, eventObj.unbindEvent);
+          utils.addMethod(exposeTo, funcName, eventObj.unbindEventWithSelectorOrCallback);
+          utils.addMethod(exposeTo, funcName, eventObj.unbindEventWithSelectorAndCallback);
+        }
+        function exposeApi(exposeTo) {
+          exposeTo.arrive = arriveEvents.bindEvent;
+          exposeUnbindApi(arriveEvents, exposeTo, "unbindArrive");
+          exposeTo.leave = leaveEvents.bindEvent;
+          exposeUnbindApi(leaveEvents, exposeTo, "unbindLeave");
+        }
+        if ($) {
+          exposeApi($.fn);
+        }
+        exposeApi(HTMLElement.prototype);
+        exposeApi(NodeList.prototype);
+        exposeApi(HTMLCollection.prototype);
+        exposeApi(HTMLDocument.prototype);
+        exposeApi(Window.prototype);
+        var Arrive2 = {};
+        exposeUnbindApi(arriveEvents, Arrive2, "unbindAllArrive");
+        exposeUnbindApi(leaveEvents, Arrive2, "unbindAllLeave");
+        return Arrive2;
+      }(window, typeof jQuery === "undefined" ? null : jQuery, void 0);
+    }
+  });
+
+  // src/VolumeProfile.tsx
+  var import_umbrellajs = __toESM(require_umbrella_min());
+
+  // node_modules/spcr-settings/settingsSection.tsx
+  var import_react = __toESM(require_react());
+  var import_react_dom = __toESM(require_react_dom());
+
+  // postcss-module:C:\Users\Plancha\AppData\Local\Temp\tmp-30504-WIAqdkhPZfoP\18913764a070\settings.module.css
+  var settings_module_default = { "settingsContainer": "settings-module__settingsContainer___e9wxn_volumeDprofiles", "heading": "settings-module__heading___AnER-_volumeDprofiles", "description": "settings-module__description___dP4fR_volumeDprofiles", "inputWrapper": "settings-module__inputWrapper___LgOrw_volumeDprofiles" };
+
+  // node_modules/spcr-settings/settingsSection.tsx
+  var SettingsSection = class {
+    constructor(name, settingsId, initialSettingsFields = {}) {
+      this.name = name;
+      this.settingsId = settingsId;
+      this.initialSettingsFields = initialSettingsFields;
+      this.settingsFields = this.initialSettingsFields;
+      this.setRerender = null;
+      this.buttonClassnames = null;
+      this.pushSettings = async () => {
+        Object.entries(this.settingsFields).forEach(([nameId, field]) => {
+          if (field.type !== "button" && this.getFieldValue(nameId) === void 0) {
+            this.setFieldValue(nameId, field.defaultValue);
+          }
+        });
+        while (!Spicetify?.Platform?.History?.listen) {
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        if (this.stopHistoryListener)
+          this.stopHistoryListener();
+        this.stopHistoryListener = Spicetify.Platform.History.listen((e) => {
+          if (e.pathname === "/preferences") {
+            this.render();
+          }
+        });
+        if (Spicetify.Platform.History.location.pathname === "/preferences") {
+          await this.render();
+        }
+      };
+      this.rerender = () => {
+        if (this.setRerender) {
+          this.setRerender(Math.random());
+        }
+      };
+      this.render = async () => {
+        while (!document.getElementById("desktop.settings.selectLanguage")) {
+          if (Spicetify.Platform.History.location.pathname !== "/preferences")
+            return;
+          await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+        const allSettingsContainer = document.querySelector(".main-view-container__scroll-node-child main div");
+        if (!allSettingsContainer)
+          return console.error("[spcr-settings] settings container not found");
+        this.buttonClassnames = Array.from(allSettingsContainer.querySelectorAll(":scope > button")).at(-1)?.className ?? null;
+        let pluginSettingsContainer = Array.from(allSettingsContainer.children).find((child) => child.id === this.settingsId);
+        if (!pluginSettingsContainer) {
+          pluginSettingsContainer = document.createElement("div");
+          pluginSettingsContainer.id = this.settingsId;
+          pluginSettingsContainer.className = settings_module_default.settingsContainer;
+          allSettingsContainer.appendChild(pluginSettingsContainer);
+        } else {
+          console.log(pluginSettingsContainer);
+        }
+        import_react_dom.default.render(/* @__PURE__ */ import_react.default.createElement(this.FieldsContainer, null), pluginSettingsContainer);
+      };
+      this.addButton = (nameId, description, value, onClick, events) => {
+        this.settingsFields[nameId] = {
+          type: "button",
+          description,
+          value,
+          events: {
+            onClick,
+            ...events
+          }
+        };
+      };
+      this.addInput = (nameId, description, defaultValue, onChange, events) => {
+        this.settingsFields[nameId] = {
+          type: "input",
+          description,
+          defaultValue,
+          events: {
+            onChange,
+            ...events
+          }
+        };
+      };
+      this.addHidden = (nameId, defaultValue) => {
+        this.settingsFields[nameId] = {
+          type: "hidden",
+          defaultValue
+        };
+      };
+      this.addToggle = (nameId, description, defaultValue, onChange, events) => {
+        this.settingsFields[nameId] = {
+          type: "toggle",
+          description,
+          defaultValue,
+          events: {
+            onChange,
+            ...events
+          }
+        };
+      };
+      this.addDropDown = (nameId, description, options, defaultIndex, onSelect, events) => {
+        this.settingsFields[nameId] = {
+          type: "dropdown",
+          description,
+          defaultValue: options[defaultIndex],
+          options,
+          events: {
+            onSelect,
+            ...events
+          }
+        };
+      };
+      this.getFieldValue = (nameId) => {
+        return JSON.parse(Spicetify.LocalStorage.get(`${this.settingsId}.${nameId}`) || "{}")?.value;
+      };
+      this.setFieldValue = (nameId, newValue) => {
+        Spicetify.LocalStorage.set(`${this.settingsId}.${nameId}`, JSON.stringify({ value: newValue }));
+      };
+      this.FieldsContainer = () => {
+        const [rerender, setRerender] = (0, import_react.useState)(0);
+        this.setRerender = setRerender;
+        return /* @__PURE__ */ import_react.default.createElement("div", {
+          className: settings_module_default.settingsContainer,
+          key: rerender
+        }, /* @__PURE__ */ import_react.default.createElement("h2", {
+          className: ["main-shelf-title main-type-cello", settings_module_default.heading].join(" ")
+        }, this.name), Object.entries(this.settingsFields).map(([nameId, field]) => {
+          return /* @__PURE__ */ import_react.default.createElement(this.Field, {
+            nameId,
+            field
+          });
+        }));
+      };
+      this.Field = (props) => {
+        const id = `${this.settingsId}.${props.nameId}`;
+        let defaultStateValue;
+        if (props.field.type === "button") {
+          defaultStateValue = props.field.value;
+        } else {
+          defaultStateValue = this.getFieldValue(props.nameId);
+        }
+        if (props.field.type === "hidden") {
+          return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null);
+        }
+        const [value, setValueState] = (0, import_react.useState)(defaultStateValue);
+        const setValue = (newValue) => {
+          if (newValue !== void 0) {
+            setValueState(newValue);
+            this.setFieldValue(props.nameId, newValue);
+          }
+        };
+        return /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null, /* @__PURE__ */ import_react.default.createElement("div", {
+          className: "main-type-mesto",
+          style: { color: "var(--spice-subtext)" }
+        }, /* @__PURE__ */ import_react.default.createElement("label", {
+          className: settings_module_default.description,
+          htmlFor: id
+        }, props.field.description || "")), /* @__PURE__ */ import_react.default.createElement("span", {
+          className: ["x-settings-secondColumn", settings_module_default.inputWrapper].join(" ")
+        }, props.field.type === "input" ? /* @__PURE__ */ import_react.default.createElement("input", {
+          className: "main-dropDown-dropDown",
+          id,
+          dir: "ltr",
+          value,
+          type: "text",
+          ...props.field.events,
+          onChange: (e) => {
+            setValue(e.currentTarget.value);
+            const onChange = props.field.events?.onChange;
+            if (onChange)
+              onChange(e);
+          }
+        }) : props.field.type === "button" ? /* @__PURE__ */ import_react.default.createElement("span", {
+          className: ""
+        }, /* @__PURE__ */ import_react.default.createElement("button", {
+          id,
+          className: this.buttonClassnames ?? "",
+          ...props.field.events,
+          onClick: (e) => {
+            setValue();
+            const onClick = props.field.events?.onClick;
+            if (onClick)
+              onClick(e);
+          },
+          type: "button"
+        }, value)) : props.field.type === "toggle" ? /* @__PURE__ */ import_react.default.createElement("label", {
+          className: "x-toggle-wrapper x-settings-secondColumn"
+        }, /* @__PURE__ */ import_react.default.createElement("input", {
+          id,
+          className: "x-toggle-input",
+          type: "checkbox",
+          checked: value,
+          ...props.field.events,
+          onClick: (e) => {
+            setValue(e.currentTarget.checked);
+            const onClick = props.field.events?.onClick;
+            if (onClick)
+              onClick(e);
+          }
+        }), /* @__PURE__ */ import_react.default.createElement("span", {
+          className: "x-toggle-indicatorWrapper"
+        }, /* @__PURE__ */ import_react.default.createElement("span", {
+          className: "x-toggle-indicator"
+        }))) : props.field.type === "dropdown" ? /* @__PURE__ */ import_react.default.createElement("select", {
+          className: "main-dropDown-dropDown",
+          id,
+          ...props.field.events,
+          onChange: (e) => {
+            setValue(props.field.options[e.currentTarget.selectedIndex]);
+            const onChange = props.field.events?.onChange;
+            if (onChange)
+              onChange(e);
+          }
+        }, props.field.options.map((option, i) => {
+          return /* @__PURE__ */ import_react.default.createElement("option", {
+            selected: option === value,
+            value: i + 1
+          }, option);
+        })) : /* @__PURE__ */ import_react.default.createElement(import_react.default.Fragment, null)));
+      };
+    }
+  };
+
+  // src/VolumeProfile.tsx
+  var arrive = require_arrive();
+  var _a;
+  var _VolumeProfile = class {
+    static get ToggleSettings() {
+      let toggle = Spicetify.LocalStorage.get(_VolumeProfile.ToggleSettingsId);
+      if (toggle != "true" && toggle != "false") {
+        Spicetify.LocalStorage.set(_VolumeProfile.ToggleSettingsId, "true");
+        return true;
+      } else {
+        return toggle == "true";
+      }
+    }
+    static set ToggleSettings(value) {
+      Spicetify.LocalStorage.set(_VolumeProfile.ToggleSettingsId, value.toString());
+    }
+    constructor(id, defaultVolume, icon) {
+      this._id = id;
+      let path = "";
+      switch (icon) {
+        case "high":
+          path = _VolumeProfile.icons.high;
+          break;
+        case "medium":
+          path = _VolumeProfile.icons.medium;
+          break;
+        case "low":
+          path = _VolumeProfile.icons.low;
+          break;
+        case "mute":
+          path = _VolumeProfile.icons.mute;
+          break;
+        case "speakerOnly":
+          path = _VolumeProfile.icons.speakerOnly;
+          break;
+      }
+      let button = `<button class='volume-bar__icon-button control-button' aria-label='Volume Profile ${this._id}' aria-describedby="volume-icon">
             <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
-                ${i}
+                ${path}
             </svg>
-        </button>`;this.buttonElement=(0,r.default)(e),isNaN(this.volume)&&(this.volume=t)}get localStorageId(){return h.localStorageIdPrefix+this._id}get settingId(){return h.settingIdPrefix+this._id}get volume(){var e=Spicetify.LocalStorage.get(this.localStorageId);return isNaN(Number(e))?NaN:Number(e)}set volume(e){Spicetify.LocalStorage.set(this.localStorageId,e.toString())}static SettingsSectionRegister(){if(h.SettingsRegistered)throw"Settings already registered";h.SettingsRegistered=!0,h.SettingsSection.pushSettings()}static isValidVolume(e){return!(""==e||isNaN(Number(e))||Number(e)<0||100<Number(e))}registerButton(){document.arrive(".main-nowPlayingBar-right > *",{existing:!0,onceOnly:!0},e=>{this.buttonElement.on("click",()=>{Spicetify.Player.setVolume(this.volume/100)}),this.buttonElement.on("contextmenu",()=>{h.ToggleSettings&&(this.volume=100*Spicetify.Player.getVolume(),Spicetify.showNotification('Volume of "'+this._id+'" changed to '+this.toString()),h.SettingsSection.setFieldValue(this.settingId,this.volume.toString()),h.SettingsSection.rerender())}),(0,r.default)(e).prepend(this.buttonElement)})}registerProfile(){this.registerButton(),this.registerSetting()}registerSetting(){h.SettingsSection.addInput(this.settingId,`Volume of Profile "${this._id}"`,this.toString(),()=>{var e=h.SettingsSection.getFieldValue(this.settingId);h.isValidVolume(e)&&(Spicetify.LocalStorage.set(this.localStorageId,e),Spicetify.showNotification(`Saved Volume Profile "${this._id}" to `+this.toString()))})}toString(){return this.volume.toFixed(2).toString()}}),g=h;g.icons=((t=class{}).low='<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path>',t.speakerOnly='<path d="M13.86 5.47a.75.75 0 00-1.061 0l-1.47 1.47-1.47-1.47A.75.75 0 008.8 6.53L10.269 8l-1.47 1.47a.75.75 0 101.06 1.06l1.47-1.47 1.47 1.47a.75.75 0 001.06-1.06L12.39 8l1.47-1.47a.75.75 0 000-1.06z"></path>',t.high=t.low+'<path d="M11.5 13.614a5.752 5.752 0 000-11.228v1.55a4.252 4.252 0 010 8.127v1.55z"></path>',t.medium='<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 6.087a4.502 4.502 0 000-8.474v1.65a2.999 2.999 0 010 5.175v1.649z"></path>',t.mute=t.speakerOnly+'<path d="M10.116 1.5A.75.75 0 008.991.85l-6.925 4a3.642 3.642 0 00-1.33 4.967 3.639 3.639 0 001.33 1.332l6.925 4a.75.75 0 001.125-.649v-1.906a4.73 4.73 0 01-1.5-.694v1.3L2.817 9.852a2.141 2.141 0 01-.781-2.92c.187-.324.456-.594.78-.782l5.8-3.35v1.3c.45-.313.956-.55 1.5-.694V1.5z"></path>',t),g.SettingsRegistered=!1,g.ToggleSettingsId="volume-profile-toggle-on-left-click",g.settingIdPrefix="settings-volume-profile-",g.SettingsSection=new class{constructor(e,t,n={}){this.name=e,this.settingsId=t,this.initialSettingsFields=n,this.settingsFields=this.initialSettingsFields,this.setRerender=null,this.buttonClassnames=null,this.pushSettings=async()=>{for(Object.entries(this.settingsFields).forEach(([e,t])=>{"button"!==t.type&&void 0===this.getFieldValue(e)&&this.setFieldValue(e,t.defaultValue)});!Spicetify?.Platform?.History?.listen;)await new Promise(e=>setTimeout(e,100));this.stopHistoryListener&&this.stopHistoryListener(),this.stopHistoryListener=Spicetify.Platform.History.listen(e=>{"/preferences"===e.pathname&&this.render()}),"/preferences"===Spicetify.Platform.History.location.pathname&&await this.render()},this.rerender=()=>{this.setRerender&&this.setRerender(Math.random())},this.render=async()=>{for(;!document.getElementById("desktop.settings.selectLanguage");){if("/preferences"!==Spicetify.Platform.History.location.pathname)return;await new Promise(e=>setTimeout(e,100))}const e=document.querySelector(".main-view-container__scroll-node-child main div");if(!e)return console.error("[spcr-settings] settings container not found");this.buttonClassnames=Array.from(e.querySelectorAll(":scope > button")).at(-1)?.className??null;let t=Array.from(e.children).find(e=>e.id===this.settingsId);t?console.log(t):((t=document.createElement("div")).id=this.settingsId,t.className=p.settingsContainer,e.appendChild(t)),o.default.render(s.default.createElement(this.FieldsContainer,null),t)},this.addButton=(e,t,n,i,r)=>{this.settingsFields[e]={type:"button",description:t,value:n,events:{onClick:i,...r}}},this.addInput=(e,t,n,i,r)=>{this.settingsFields[e]={type:"input",description:t,defaultValue:n,events:{onChange:i,...r}}},this.addHidden=(e,t)=>{this.settingsFields[e]={type:"hidden",defaultValue:t}},this.addToggle=(e,t,n,i,r)=>{this.settingsFields[e]={type:"toggle",description:t,defaultValue:n,events:{onChange:i,...r}}},this.addDropDown=(e,t,n,i,r,o)=>{this.settingsFields[e]={type:"dropdown",description:t,defaultValue:n[i],options:n,events:{onSelect:r,...o}}},this.getFieldValue=e=>JSON.parse(Spicetify.LocalStorage.get(this.settingsId+"."+e)||"{}")?.value,this.setFieldValue=(e,t)=>{Spicetify.LocalStorage.set(this.settingsId+"."+e,JSON.stringify({value:t}))},this.FieldsContainer=()=>{var[e,t]=(0,s.useState)(0);return this.setRerender=t,s.default.createElement("div",{className:p.settingsContainer,key:e},s.default.createElement("h2",{className:["main-shelf-title main-type-cello",p.heading].join(" ")},this.name),Object.entries(this.settingsFields).map(([e,t])=>s.default.createElement(this.Field,{nameId:e,field:t})))},this.Field=n=>{var e=this.settingsId+"."+n.nameId;let t;if(t="button"===n.field.type?n.field.value:this.getFieldValue(n.nameId),"hidden"===n.field.type)return s.default.createElement(s.default.Fragment,null);const[i,r]=(0,s.useState)(t),o=e=>{void 0!==e&&(r(e),this.setFieldValue(n.nameId,e))};return s.default.createElement(s.default.Fragment,null,s.default.createElement("div",{className:"main-type-mesto",style:{color:"var(--spice-subtext)"}},s.default.createElement("label",{className:p.description,htmlFor:e},n.field.description||"")),s.default.createElement("span",{className:["x-settings-secondColumn",p.inputWrapper].join(" ")},"input"===n.field.type?s.default.createElement("input",{className:"main-dropDown-dropDown",id:e,dir:"ltr",value:i,type:"text",...n.field.events,onChange:e=>{o(e.currentTarget.value);const t=n.field.events?.onChange;t&&t(e)}}):"button"===n.field.type?s.default.createElement("span",{className:""},s.default.createElement("button",{id:e,className:this.buttonClassnames??"",...n.field.events,onClick:e=>{o();const t=n.field.events?.onClick;t&&t(e)},type:"button"},i)):"toggle"===n.field.type?s.default.createElement("label",{className:"x-toggle-wrapper x-settings-secondColumn"},s.default.createElement("input",{id:e,className:"x-toggle-input",type:"checkbox",checked:i,...n.field.events,onClick:e=>{o(e.currentTarget.checked);const t=n.field.events?.onClick;t&&t(e)}}),s.default.createElement("span",{className:"x-toggle-indicatorWrapper"},s.default.createElement("span",{className:"x-toggle-indicator"}))):"dropdown"===n.field.type?s.default.createElement("select",{className:"main-dropDown-dropDown",id:e,...n.field.events,onChange:e=>{o(n.field.options[e.currentTarget.selectedIndex]);const t=n.field.events?.onChange;t&&t(e)}},n.field.options.map((e,t)=>s.default.createElement("option",{selected:e===i,value:t+1},e))):s.default.createElement(s.default.Fragment,null)))}}}("Volume Profile Settings","volume-profile-settings"),g.localStorageIdPrefix="localStorage-volume-profile-",g.volumeIconHtmlSelector="#volume-icon";var m=async function(){for(;null==Spicetify||!Spicetify.Player||null==Spicetify||!Spicetify.LocalStorage;)await new Promise(e=>setTimeout(e,100));g.SettingsSection.addToggle("toggle-left-click-volume-profile","Set Volume Profile on left click",g.ToggleSettings,()=>{g.ToggleSettings=g.SettingsSection.getFieldValue("toggle-left-click-volume-profile")});var e=new g("middle",50,"medium"),t=new g("left",30,"low");for(const n of[new g("right",80,"high"),e,t])n.registerProfile();g.SettingsSectionRegister()};(async()=>{await m()})()})();(async()=>{var e;document.getElementById("volumeDprofiles")||((e=document.createElement("style")).id="volumeDprofiles",e.textContent=String.raw`
-  .settings-module__settingsContainer___e9wxn_volumeDprofiles{display:contents}.settings-module__heading___AnER-_volumeDprofiles{grid-column:1/-1;font-size:1.125rem;line-height:1.5rem;color:#fff;margin-top:24px}.settings-module__description___dP4fR_volumeDprofiles{font-size:.875rem;line-height:1.25rem}.settings-module__inputWrapper___LgOrw_volumeDprofiles{display:flex;justify-self:end}
-      `.trim(),document.head.appendChild(e))})();
+        </button>`;
+      this.buttonElement = (0, import_umbrellajs.default)(button);
+      if (isNaN(this.volume))
+        this.volume = defaultVolume;
+    }
+    get localStorageId() {
+      return _VolumeProfile.localStorageIdPrefix + this._id;
+    }
+    get settingId() {
+      return _VolumeProfile.settingIdPrefix + this._id;
+    }
+    get volume() {
+      let volume = Spicetify.LocalStorage.get(this.localStorageId);
+      if (isNaN(Number(volume))) {
+        return NaN;
+      }
+      return Number(volume);
+    }
+    set volume(value) {
+      Spicetify.LocalStorage.set(this.localStorageId, value.toString());
+    }
+    static SettingsSectionRegister() {
+      if (!_VolumeProfile.SettingsRegistered) {
+        _VolumeProfile.SettingsRegistered = true;
+        _VolumeProfile.SettingsSection.pushSettings();
+      } else {
+        throw "Settings already registered";
+      }
+    }
+    static isValidVolume(value) {
+      return !(value == "" || isNaN(Number(value)) || Number(value) < 0 || Number(value) > 100);
+    }
+    registerButton() {
+      document.arrive(".main-nowPlayingBar-right > *", { existing: true, onceOnly: true }, (element) => {
+        this.buttonElement.on("click", () => {
+          Spicetify.Player.setVolume(this.volume / 100);
+        });
+        this.buttonElement.on("contextmenu", () => {
+          if (_VolumeProfile.ToggleSettings) {
+            this.volume = Spicetify.Player.getVolume() * 100;
+            Spicetify.showNotification('Volume of "' + this._id + '" changed to ' + this.toString());
+            _VolumeProfile.SettingsSection.setFieldValue(this.settingId, this.volume.toString());
+            _VolumeProfile.SettingsSection.rerender();
+          }
+        });
+        (0, import_umbrellajs.default)(element).prepend(this.buttonElement);
+      });
+    }
+    registerProfile() {
+      this.registerButton();
+      this.registerSetting();
+    }
+    registerSetting() {
+      _VolumeProfile.SettingsSection.addInput(this.settingId, `Volume of Profile "${this._id}"`, this.toString(), () => {
+        let changedVolume = _VolumeProfile.SettingsSection.getFieldValue(this.settingId);
+        if (_VolumeProfile.isValidVolume(changedVolume)) {
+          Spicetify.LocalStorage.set(this.localStorageId, changedVolume);
+          Spicetify.showNotification(`Saved Volume Profile "${this._id}" to ${this.toString()}`);
+        }
+      });
+    }
+    toString() {
+      return this.volume.toFixed(2).toString();
+    }
+  };
+  var VolumeProfile = _VolumeProfile;
+  VolumeProfile.icons = (_a = class {
+  }, _a.low = '<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path>', _a.speakerOnly = '<path d="M13.86 5.47a.75.75 0 00-1.061 0l-1.47 1.47-1.47-1.47A.75.75 0 008.8 6.53L10.269 8l-1.47 1.47a.75.75 0 101.06 1.06l1.47-1.47 1.47 1.47a.75.75 0 001.06-1.06L12.39 8l1.47-1.47a.75.75 0 000-1.06z"></path>', _a.high = _a.low + '<path d="M11.5 13.614a5.752 5.752 0 000-11.228v1.55a4.252 4.252 0 010 8.127v1.55z"></path>', _a.medium = '<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 6.087a4.502 4.502 0 000-8.474v1.65a2.999 2.999 0 010 5.175v1.649z"></path>', _a.mute = _a.speakerOnly + '<path d="M10.116 1.5A.75.75 0 008.991.85l-6.925 4a3.642 3.642 0 00-1.33 4.967 3.639 3.639 0 001.33 1.332l6.925 4a.75.75 0 001.125-.649v-1.906a4.73 4.73 0 01-1.5-.694v1.3L2.817 9.852a2.141 2.141 0 01-.781-2.92c.187-.324.456-.594.78-.782l5.8-3.35v1.3c.45-.313.956-.55 1.5-.694V1.5z"></path>', _a);
+  VolumeProfile.SettingsRegistered = false;
+  VolumeProfile.ToggleSettingsId = "volume-profile-toggle-on-left-click";
+  VolumeProfile.settingIdPrefix = "settings-volume-profile-";
+  VolumeProfile.SettingsSection = new SettingsSection("Volume Profile Settings", "volume-profile-settings");
+  VolumeProfile.localStorageIdPrefix = "localStorage-volume-profile-";
+  VolumeProfile.volumeIconHtmlSelector = "#volume-icon";
+
+  // src/app.tsx
+  async function main() {
+    while (!(Spicetify == null ? void 0 : Spicetify.Player) || !(Spicetify == null ? void 0 : Spicetify.LocalStorage)) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
+    VolumeProfile.SettingsSection.addToggle("toggle-left-click-volume-profile", "Set Volume Profile on left click", VolumeProfile.ToggleSettings, () => {
+      VolumeProfile.ToggleSettings = VolumeProfile.SettingsSection.getFieldValue("toggle-left-click-volume-profile");
+    });
+    var middle = new VolumeProfile("middle", 50, "medium");
+    var left = new VolumeProfile("left", 30, "low");
+    var right = new VolumeProfile("right", 80, "high");
+    for (const profile of [right, middle, left]) {
+      profile.registerProfile();
+    }
+    VolumeProfile.SettingsSectionRegister();
+  }
+  var app_default = main;
+
+  // node_modules/spicetify-creator/dist/temp/index.jsx
+  (async () => {
+    await app_default();
+  })();
+})();
+(async () => {
+    if (!document.getElementById(`volumeDprofiles`)) {
+      var el = document.createElement('style');
+      el.id = `volumeDprofiles`;
+      el.textContent = (String.raw`
+  /* ../../AppData/Local/Temp/tmp-30504-WIAqdkhPZfoP/18913764a070/settings.module.css */
+.settings-module__settingsContainer___e9wxn_volumeDprofiles {
+  display: contents;
+}
+.settings-module__heading___AnER-_volumeDprofiles {
+  grid-column: 1/-1;
+  font-size: 1.125rem;
+  line-height: 1.5rem;
+  color: #fff;
+  margin-top: 24px;
+}
+.settings-module__description___dP4fR_volumeDprofiles {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.settings-module__inputWrapper___LgOrw_volumeDprofiles {
+  display: flex;
+  justify-self: end;
+}
+
+      `).trim();
+      document.head.appendChild(el);
+    }
+  })()
