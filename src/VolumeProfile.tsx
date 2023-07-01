@@ -56,7 +56,7 @@ export class VolumeProfile {
                 path = VolumeProfile.icons.speakerOnly;
                 break;
         }
-        let button = `<button class='control-button' aria-label='Volume Profile ${this._id}' aria-describedby="volume-icon">
+        let button = `<button class='volume-bar__icon-button control-button' aria-label='Volume Profile ${this._id}' aria-describedby="volume-icon">
             <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
                 ${path}
             </svg>
