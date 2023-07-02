@@ -3,6 +3,8 @@
 ###### Built with [Spicetify Creator](https://github.com/FlafyDev/spicetify-creator). Download from [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace).
 
 [![repo](https://img.shields.io/github/last-commit/notPlancha/Volume-Profiles-Spicetify-Extension-v2)](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
+![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/notPlancha/volume-profiles-v2)
+![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/notPlancha/volume-profiles-v2)
 
 This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/spicetify/spicetify-cli)), on the bottom right, to save a volume profile, to load it later when needed.
 
@@ -30,7 +32,7 @@ If you don't have powershell honestly you'll figure it out.
 ![buttons](assets/buttons.png)
 ![settings](assets/settings.png)
 The settings look a bit weird and I plan to fix them soon.
-![notification](assets/settings.png)
+![notification](assets/notification.png)
 
 ## Notes
 
