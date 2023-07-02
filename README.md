@@ -30,7 +30,7 @@ If you don't have powershell honestly you'll figure it out.
 ![buttons](assets/buttons.png)
 ![settings](assets/settings.png)
 The settings look a bit weird and I plan to fix them soon.
-![notification](assets/settings.png)
+![notification](assets/notification.png)
 
 ## Notes
 
