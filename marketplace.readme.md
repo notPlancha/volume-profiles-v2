@@ -17,6 +17,6 @@ This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/s
 
 If you *really* like the extension, don't hesitate to add a star to it, and watch it for any future update.
 
-[![GitHub Repo stars](https://img.shields.io/github/stars/notPlancha/notPlancha/volume-profiles-v2/?style=social)](https://github.com/notPlancha/volume-profiles-v2/)
+[![GitHub Repo stars](https://img.shields.io/github/stars/notPlancha/volume-profiles-v2/?style=social)](https://github.com/notPlancha/volume-profiles-v2/)
 
 [![follow me](https://img.shields.io/github/followers/notPlancha?style=social)](https://github.com/notPlancha)
