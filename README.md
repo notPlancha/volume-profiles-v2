@@ -52,6 +52,8 @@ The settings look a bit weird and I plan to fix them soon.
 ## TODO
 
 * Add a way to put the buttons under the slider (and make that the default since the new Spotify sucks)
+* Add an overlay (the button turns green) when the volume matches current volume (so when clicked)
+* Round the volume when setting with right click
 * A gif of the images (and testing if said gifs work on the marketplace)
 * Fix settings formating
 * Fix aria-label (the popup text that should be above the symbols)
