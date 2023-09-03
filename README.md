@@ -1,8 +1,8 @@
 # Volume Profiles v2
 
-###### Built with [Spicetify Creator](https://github.com/FlafyDev/spicetify-creator). Download from [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace).
+> Built with [Spicetify Creator](https://github.com/FlafyDev/spicetify-creator). Download from [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace).
 
-[![repo](https://img.shields.io/github/last-commit/notPlancha/Volume-Profiles-Spicetify-Extension-v2)](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
+[![repo](https://img.shields.io/badge/notPlancha/volume--profiles--v2-272829?logo=github)](https://github.com/notPlancha/Volume-Profiles-Spicetify-Extension-v2)
 ![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/notPlancha/volume-profiles-v2)
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/notPlancha/volume-profiles-v2)
 
