@@ -1,22 +1,29 @@
 {
   "name": "volume-profiles",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "private": true,
-  "scripts": {
-    "build": "spicetify-creator",
-    "build-local": "spicetify-creator --out=dist --minify",
-    "watch": "spicetify-creator --watch"
-  },
   "license": "MIT",
+  "scripts": {
+    "upgradeDeps": "ncu",
+    "audit": "bun i --yarn && yarn audit",
+    "prebuild": "spiceitify backup",
+    "build": "spicetify-creator",
+    "postbuild": "spicetify apply && spicetify enable-devtools",
+    "build-local": "spicetify-creator --out=dist --minify",
+    "watch": "spicetify-creator --watch",
+    "apply": "spicetify-creator && spicetify apply && spicetify enable-devtools",
+    "postapply": "spicetify-creator --out=dist --minify"
+  },
   "devDependencies": {
-    "@types/react": "^17.0.43",
-    "@types/react-dom": "^17.0.14",
-    "spicetify-creator": "^1.0.9"
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.0",
+    "npm-check-updates": "^16.14.20",
+    "spicetify-creator": "^1.0.17"
   },
   "dependencies": {
     "arrive": "^2.4.1",
     "lodash": "^4.17.21",
-    "spcr-settings": "^1.1.0",
-    "umbrellajs": "^3.3.1"
+    "spcr-settings": "^1.3.1",
+    "umbrellajs": "^3.3.3"
   }
 }
