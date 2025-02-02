@@ -34,20 +34,11 @@ export class VolumeProfile {
   );
 
   public static get ToggleSettings(): boolean {
-    const toggle = Spicetify.LocalStorage.get(VolumeProfile.ToggleSettingsId);
-    if (toggle != "true" && toggle != "false") {
-      Spicetify.LocalStorage.set(VolumeProfile.ToggleSettingsId, "true");
-      return true;
-    } else {
-      return toggle == "true";
-    }
+    return VolumeProfile.SettingsSection.getFieldValue(VolumeProfile.ToggleSettingsId); // TODO verify if this works
   }
 
   public static set ToggleSettings(value: boolean) {
-    Spicetify.LocalStorage.set(
-      VolumeProfile.ToggleSettingsId,
-      value.toString(),
-    );
+    VolumeProfile.SettingsSection.setFieldValue(VolumeProfile.ToggleSettingsId, value);
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
 
@@ -98,19 +89,19 @@ export class VolumeProfile {
     return VolumeProfile.settingIdPrefix + this._id;
   }
   public get volume(): number {
-    const volume = Spicetify.LocalStorage.get(this.localStorageId);
+    const volume = VolumeProfile.SettingsSection.getFieldValue(this.settingId);
     return Number(volume);
   }
   public set volume(value: number) {
-    Spicetify.LocalStorage.set(this.localStorageId, value.toFixed(2));
+    VolumeProfile.SettingsSection.setFieldValue(this.settingId, value.toFixed(2));
   }
 
   public get bind(): Bind {
-    return Spicetify.LocalStorage.get(VolumeProfile.bindIdPrefix + this._id) || "";
+    return VolumeProfile.SettingsSection.getFieldValue(VolumeProfile.bindIdPrefix + this._id) || "";
   }
 
   public set bind(value: Bind) {
-    Spicetify.LocalStorage.set(VolumeProfile.bindIdPrefix + this._id, value);
+    VolumeProfile.SettingsSection.setFieldValue(VolumeProfile.bindIdPrefix + this._id, value);
     this.registerBind(value);
   }
 
@@ -148,7 +139,7 @@ export class VolumeProfile {
             VolumeProfile.SettingsSection.setFieldValue(
               this.settingId,
               this.volume.toString(),
-            ); //here it should not be fixed
+            );
             VolumeProfile.SettingsSection.rerender();
           }
         });
@@ -172,7 +163,7 @@ export class VolumeProfile {
           this.settingId,
         ) as string;
         if (VolumeProfile.isValidVolume(changedVolume)) {
-          Spicetify.LocalStorage.set(this.localStorageId, changedVolume);
+          VolumeProfile.SettingsSection.setFieldValue(this.settingId, changedVolume);
         }
       },
     );
