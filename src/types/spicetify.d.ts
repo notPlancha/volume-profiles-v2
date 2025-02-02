@@ -425,7 +425,7 @@ declare namespace Spicetify {
      * Spicetify.Keyboard is wrapper of this library to be compatible with legacy Spotify,
      * so new extension should use this library instead.
      */
-     function Mousetrap(element?: any): void;
+    const Mousetrap: import("mousetrap").MousetrapStatic
 
     /**
      * Contains vast array of internal APIs.

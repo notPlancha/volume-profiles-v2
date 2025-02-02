@@ -8,6 +8,7 @@
     "postsetup": "lefthook install",
     "upgradeDeps": "ncu",
     "audit": "bun i --yarn && yarn audit",
+    "lint": "biome check --write",
     "build": "spicetify-creator",
     "postbuild": "spicetify apply",
     "build-local": "spicetify-creator --out=dist --minify",
@@ -21,11 +22,14 @@
     "umbrellajs": "^3.3.3"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/arrive": "^2.4.4",
+    "@types/mousetrap": "^1.6.15",
     "@types/react": "^19.0.8",
     "@types/react-dom": "^19.0.3",
     "lefthook": "^1.10.10",
     "npm-check-updates": "^17.1.14",
     "spicetify-creator": "^1.0.17"
-  }
+  },
+  "trustedDependencies": ["@biomejs/biome"]
 }
