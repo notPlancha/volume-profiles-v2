@@ -4,19 +4,20 @@
   "private": true,
   "license": "MIT",
   "scripts": {
+    "setup": "spicetify restore && spicetify backup && spicetify enable-devtools",
+    "postsetup": "lefthook install",
     "upgradeDeps": "ncu",
     "audit": "bun i --yarn && yarn audit",
-    "prebuild": "spiceitify backup",
+
     "build": "spicetify-creator",
-    "postbuild": "spicetify apply && spicetify enable-devtools",
+    "postbuild": "spicetify apply",
     "build-local": "spicetify-creator --out=dist --minify",
-    "watch": "spicetify-creator --watch",
-    "apply": "spicetify-creator && spicetify apply && spicetify enable-devtools",
-    "postapply": "spicetify-creator --out=dist --minify"
+    "watch": "spicetify-creator --watch"
   },
   "devDependencies": {
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.0",
+    "lefthook": "^1.10.10",
     "npm-check-updates": "^16.14.20",
     "spicetify-creator": "^1.0.17"
   },

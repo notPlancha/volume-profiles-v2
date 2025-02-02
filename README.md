@@ -8,31 +8,32 @@
 
 This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/spicetify/spicetify-cli)), on the bottom right, to save a volume profile, to load it later when needed.
 
-This is the upgraded version of [the first version](https://github.com/notPlancha/volume-profiles-v1), where it's more responsive, more extended, and more Spicy.
-
-## Install
-To install it just grab the js in the dist folder, and load it with spicetify. Alternatively, use the marketplace. 
-
-## Contribute it
-If you want to contribute it (with a bug, or an issue, or a suggestion), raise an issue or a pull request (make sure to check the TODO in the bottom too)
-
-To develop, use `npm install`, add the extension to the config-xpui.ini (`spicetify -c`), and to run, run `.\run.ps1` on powershell (7 preferentially).
-
-If you get `UnauthorizedAccess`, do:
-
-```pwsh
-Set-ExecutionPolicy RemoteSigned -Scope CurrentUser
-Unblock-File .\run.ps1
-```
-
-If you don't have powershell honestly you'll figure it out.
-
-## Preview
-
 ![buttons](assets/buttons.png)
 ![settings](assets/settings.png)
-The settings look a bit weird and I plan to fix them soon.
 ![notification](assets/notification.png)
+
+This is the upgraded version of [the first version](https://github.com/notPlancha/volume-profiles-v1), where it's more responsive, more extended, and more Spicy.
+
+
+
+## Install
+To install it just grab the js in the dist folder, and load it with spicetify by adding it to `config-xpui.ini`. Alternatively, search it up on the [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace). 
+
+
+## Contribute
+Feel free to raise any issue or pull request.
+
+### Setup
+
+After cloning and `npm i` (or `bun i`), it's important to add the extension to `config-xpui.ini` (run `spicetify -c` to find out the path):
+
+```ini
+extensions = volume-profiles.js
+# if you want more extensions divide them with a vertical bar
+extensions = volume-profiles.js | someotherextension.js
+```
+
+Then do `npm run setup` (or `bun run setup`). This will restore, backup and enable devtools for spotify; and add add a pre-commit that builds `volume-profiles.js` before every commit. The commands available are visible on `package.json`
 
 ## Notes
 
