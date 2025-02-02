@@ -1,6 +1,6 @@
 import u from "umbrellajs"
 import { SettingsSection } from "spcr-settings";
-var arrive = require("arrive");
+require("arrive"); // for document.arrive
 export class VolumeProfile {
 
     public static icons = class icons{
@@ -76,13 +76,10 @@ export class VolumeProfile {
     }
     public get volume() : number {
         let volume = Spicetify.LocalStorage.get(this.localStorageId);
-        if (isNaN(Number(volume))) {
-            return NaN;
-        }
         return Number(volume);
     }
     public set volume(value : number){
-        Spicetify.LocalStorage.set(this.localStorageId, value.toString());
+        Spicetify.LocalStorage.set(this.localStorageId, value.toFixed(2));
     }
 
 
@@ -100,7 +97,7 @@ export class VolumeProfile {
 
 
     public registerButton(){
-        document.arrive(".main-nowPlayingBar-right > *", {existing:  true, onceOnly : true}, (element : HTMLElement) => {
+        document.arrive(".main-nowPlayingBar-right > *", {existing:  true, onceOnly : true}, (element : Element) => {
             this.buttonElement.on("click", () => {
                 Spicetify.Player.setVolume(this.volume / 100);
             });
