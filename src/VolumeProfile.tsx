@@ -34,11 +34,16 @@ export class VolumeProfile {
   );
 
   public static get ToggleSettings(): boolean {
-    return VolumeProfile.SettingsSection.getFieldValue(VolumeProfile.ToggleSettingsId); // TODO verify if this works
+    return VolumeProfile.SettingsSection.getFieldValue(
+      VolumeProfile.ToggleSettingsId,
+    );
   }
 
   public static set ToggleSettings(value: boolean) {
-    VolumeProfile.SettingsSection.setFieldValue(VolumeProfile.ToggleSettingsId, value);
+    VolumeProfile.SettingsSection.setFieldValue(
+      VolumeProfile.ToggleSettingsId,
+      value,
+    );
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
 
@@ -93,15 +98,25 @@ export class VolumeProfile {
     return Number(volume);
   }
   public set volume(value: number) {
-    VolumeProfile.SettingsSection.setFieldValue(this.settingId, value.toFixed(2));
+    VolumeProfile.SettingsSection.setFieldValue(
+      this.settingId,
+      value.toFixed(2),
+    );
   }
 
   public get bind(): Bind {
-    return VolumeProfile.SettingsSection.getFieldValue(VolumeProfile.bindIdPrefix + this._id) || "";
+    return (
+      VolumeProfile.SettingsSection.getFieldValue(
+        VolumeProfile.bindIdPrefix + this._id,
+      ) || ""
+    );
   }
 
   public set bind(value: Bind) {
-    VolumeProfile.SettingsSection.setFieldValue(VolumeProfile.bindIdPrefix + this._id, value);
+    VolumeProfile.SettingsSection.setFieldValue(
+      VolumeProfile.bindIdPrefix + this._id,
+      value,
+    );
     this.registerBind(value);
   }
 
@@ -163,7 +178,10 @@ export class VolumeProfile {
           this.settingId,
         ) as string;
         if (VolumeProfile.isValidVolume(changedVolume)) {
-          VolumeProfile.SettingsSection.setFieldValue(this.settingId, changedVolume);
+          VolumeProfile.SettingsSection.setFieldValue(
+            this.settingId,
+            changedVolume,
+          );
         }
       },
     );
@@ -188,7 +206,8 @@ export class VolumeProfile {
     this.buttonElement.trigger("click");
   }
 
-  public registerBind(bind: Bind) { // TODO unregister old bind
+  public registerBind(bind: Bind) {
+    // TODO unregister old bind
     Spicetify.Mousetrap.unbind(bind);
     Spicetify.Mousetrap.bind(bind, () => this.click());
   }
