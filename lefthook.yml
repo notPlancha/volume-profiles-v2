@@ -1,5 +1,4 @@
 pre-commit:
   commands:
     build:
-      run: npm run build-local
-      stage_fixed: true
+      run: npm run build-local && git add dist/*
