@@ -85,7 +85,7 @@ export class VolumeProfile {
     if (bind) this.bind = bind;
   }
   private readonly _id: string;
-
+  private _old_bind: Bind | undefined;
   public buttonElement: Umbrella;
   public get localStorageId(): string {
     return VolumeProfile.localStorageIdPrefix + this._id;
@@ -104,11 +104,11 @@ export class VolumeProfile {
     );
   }
 
-  public get bind(): Bind {
+  public get bind(): Bind | undefined {
     return (
       VolumeProfile.SettingsSection.getFieldValue(
         VolumeProfile.bindIdPrefix + this._id,
-      ) || ""
+      ) || undefined
     );
   }
 
@@ -118,6 +118,7 @@ export class VolumeProfile {
       value,
     );
     this.registerBind(value);
+    this._old_bind = value;
   }
 
   public static SettingsSectionRegister() {
@@ -207,7 +208,9 @@ export class VolumeProfile {
   }
 
   public registerBind(bind: Bind) {
-    // TODO unregister old bind
+    // TODO: This might be an issue because the setting imediatly deletes the other, so it's not a perfect solution
+    // An id type of binding and unbinding would help, but I'm not sure yet how to do this.
+    // https://craig.is/killing/mice    if(this._old_bind) Spicetify.Mousetrap.unbind(this._old_bind);
     Spicetify.Mousetrap.unbind(bind);
     Spicetify.Mousetrap.bind(bind, () => this.click());
   }
