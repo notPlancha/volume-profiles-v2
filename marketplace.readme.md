@@ -5,7 +5,7 @@
 
 
 
-This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/spicetify/spicetify-cli)), on the bottom right, to save a volume profile, to load it later when needed.
+This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/spicetify/spicetify-cli)), on the bottom right, to save a volume profile, to load it later when needed. Additionally, you can use keyboard binds (limited, see [#6](https://github.com/notPlancha/volume-profiles-v2/issues/6))
 
 ![buttons](assets/buttons.png)
 ![notification](assets/settings.png)
