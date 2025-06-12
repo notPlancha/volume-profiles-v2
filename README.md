@@ -1,4 +1,4 @@
-# Volume Profiles v2
+# Volume Profiles
 
 > Built with [Spicetify Creator](https://github.com/FlafyDev/spicetify-creator). Download from [Spicetify Marketplace](https://github.com/CharlieS1103/spicetify-marketplace).
 
@@ -7,6 +7,7 @@
 ![GitHub Release Date - Published_At](https://img.shields.io/github/release-date/notPlancha/volume-profiles-v2)
 
 This extension adds 3 buttons to Spotify (using [spicetify](https://github.com/spicetify/spicetify-cli)), on the bottom right, to save a volume profile, to load it later when needed.
+Additionally, you can use keyboard binds (limited, see [#6](https://github.com/notPlancha/volume-profiles-v2/issues/6))
 
 ![buttons](assets/buttons.png)
 ![settings](assets/settings.png)

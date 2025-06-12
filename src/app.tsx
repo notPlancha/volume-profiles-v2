@@ -24,7 +24,8 @@ async function main() {
   const middle = new VolumeProfile("middle", 50, "medium", "f14");
   const right = new VolumeProfile("right", 80, "high", "f15");
   for (const profile of [left, middle, right]) {
-    profile.registerProfile();
+    // Better to have it here to make it more explicit
+    profile.registerSetting();
   }
   VolumeProfile.SettingsSectionRegister();
 }

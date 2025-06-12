@@ -1,8 +1,4 @@
 import { SettingsSection } from "spcr-settings";
-import u from "umbrellajs";
-import type { Umbrella } from "umbrellajs";
-
-require("arrive"); // for document.arrive
 
 type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnly";
 type Bind = string;
@@ -36,6 +32,7 @@ export class VolumeProfile {
     "Volume Profile Settings",
     "volume-profile-settings",
   );
+  private button: Spicetify.Playbar.Button;
 
   public static get ToggleSettings(): boolean {
     return VolumeProfile.SettingsSection.getFieldValue(
@@ -50,8 +47,6 @@ export class VolumeProfile {
     );
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
-
-  private static volumeIconHtmlSelector = "#volume-icon";
 
   constructor(
     id: string,
@@ -83,18 +78,34 @@ export class VolumeProfile {
           ${path}
       </svg>
     `;
-    const button = new Spicetify.Playbar.Button(
+    this.button = new Spicetify.Playbar.Button(
       `Volume Profile (${this._id})`,
       icon_svg,
+      (self) => {
+        Spicetify.Player.setVolume(this.volume / 100);
+      },
+      false,
+      false,
+      true,
     );
-
-    this.buttonElement = u(button.element);
+    this.button.element.addEventListener("contextmenu", (ev) => {
+      if (VolumeProfile.ToggleSettings) {
+        this.volume = Spicetify.Player.getVolume() * 100;
+        Spicetify.showNotification(
+          `Volume of "${this._id}" changed to ${this.toString()}`,
+        );
+        VolumeProfile.SettingsSection.setFieldValue(
+          this.settingId,
+          this.volume.toString(),
+        );
+        VolumeProfile.SettingsSection.rerender();
+      }
+    });
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
   }
   private readonly _id: string;
   private _old_bind: Bind | undefined;
-  public buttonElement: Umbrella;
   public get localStorageId(): string {
     return VolumeProfile.localStorageIdPrefix + this._id;
   }
@@ -131,8 +142,9 @@ export class VolumeProfile {
 
   public static SettingsSectionRegister() {
     if (!VolumeProfile.SettingsRegistered) {
-      VolumeProfile.SettingsRegistered = true;
-      VolumeProfile.SettingsSection.pushSettings();
+      VolumeProfile.SettingsSection.pushSettings().then(() => {
+        VolumeProfile.SettingsRegistered = true;
+      });
     } else {
       throw "Settings already registered";
     }
@@ -144,37 +156,6 @@ export class VolumeProfile {
       Number(value) < 0 ||
       Number(value) > 100
     );
-  }
-
-  public registerButton() {
-    document.arrive(
-      ".main-nowPlayingBar-right > *",
-      { existing: true, onceOnly: true },
-      (element: Element) => {
-        this.buttonElement.on("click", () => {
-          Spicetify.Player.setVolume(this.volume / 100);
-        });
-        this.buttonElement.on("contextmenu", () => {
-          if (VolumeProfile.ToggleSettings) {
-            this.volume = Spicetify.Player.getVolume() * 100;
-            Spicetify.showNotification(
-              `Volume of "${this._id}" changed to ${this.toString()}`,
-            );
-            VolumeProfile.SettingsSection.setFieldValue(
-              this.settingId,
-              this.volume.toString(),
-            );
-            VolumeProfile.SettingsSection.rerender();
-          }
-        });
-        u(element).prepend(this.buttonElement);
-      },
-    );
-  }
-
-  public registerProfile() {
-    this.registerButton();
-    this.registerSetting(); //can't fix until scpr-settings is fixed
   }
 
   public registerSetting() {
@@ -199,10 +180,9 @@ export class VolumeProfile {
       `Bind for Profile "${this._id}"`,
       this.bind,
       () => {
-        const changedBind = VolumeProfile.SettingsSection.getFieldValue(
+        this.bind = VolumeProfile.SettingsSection.getFieldValue(
           VolumeProfile.bindIdPrefix + this._id,
         ) as string;
-        this.bind = changedBind;
       },
     );
   }
@@ -212,11 +192,11 @@ export class VolumeProfile {
   }
 
   public click() {
-    this.buttonElement.trigger("click");
+    this.button.element.click();
   }
 
   public registerBind(bind: Bind) {
-    // TODO: This might be an issue because the setting imediatly deletes the other, so it's not a perfect solution
+    // TODO: This might be an issue because the setting immediately deletes the other, so it's not a perfect solution
     // An id type of binding and unbinding would help, but I'm not sure yet how to do this.
     // https://craig.is/killing/mice    if(this._old_bind) Spicetify.Mousetrap.unbind(this._old_bind);
     Spicetify.Mousetrap.unbind(bind);
