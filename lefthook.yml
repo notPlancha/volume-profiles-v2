@@ -1,4 +1,7 @@
 pre-commit:
   commands:
     build:
-      run: npm run build-local && git add dist/*
+      run: bun run build-local && git add dist/*
+  scripts:
+    "update-ver.js":
+      runner: bun

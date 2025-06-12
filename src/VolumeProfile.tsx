@@ -9,6 +9,7 @@ type Bind = string;
 
 export class VolumeProfile {
   public static icons = {
+    // TODO use spiceitfy icons
     get low() {
       return '<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path>';
     },
@@ -77,13 +78,17 @@ export class VolumeProfile {
         path = VolumeProfile.icons.speakerOnly;
         break;
     }
-    const button = `<button class='control-button' aria-label='Volume Profile ${this._id}' aria-describedby="volume-icon" style="margin-top:4px">
-            <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
-                ${path}
-            </svg>
-        </button>`;
+    const icon_svg = `
+      <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
+          ${path}
+      </svg>
+    `;
+    const button = new Spicetify.Playbar.Button(
+      `Volume Profile (${this._id})`,
+      icon_svg,
+    );
 
-    this.buttonElement = u(button);
+    this.buttonElement = u(button.element);
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
   }

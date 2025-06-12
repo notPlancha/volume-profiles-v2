@@ -1,6 +1,6 @@
 {
   "name": "volume-profiles",
-  "version": "2.2.0",
+  "version": "3.0.0-75f3984",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -30,5 +30,7 @@
     "lefthook": "^1.11.13",
     "spicetify-creator": "^1.0.17"
   },
-  "trustedDependencies": ["@biomejs/biome"]
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }
