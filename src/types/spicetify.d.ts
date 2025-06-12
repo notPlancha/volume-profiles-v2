@@ -1,4 +1,12 @@
-declare namespace Spicetify {
+// https://github.com/spicetify/cli/blob/5146df55e7fcea247e43aa1b0e33f3ba36cd205d/globals.d.ts modified + Mousetrap
+// Copyright (C) 2025 spicetify-cli
+// Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See https://github.com/spicetify/cli/blob/main/LICENSE file for details.
+
+import { MousetrapInstance } from 'mousetrap';
+
+
+declare global {
+  namespace Spicetify {
 	type Icon =
 		| "album"
 		| "artist"
@@ -780,7 +788,7 @@ declare namespace Spicetify {
 	 * Spicetify.Keyboard is wrapper of this library to be compatible with legacy Spotify,
 	 * so new extension should use this library instead.
 	 */
-	function Mousetrap(element?: any): void;
+	const Mousetrap: MousetrapInstance;
 
 	/**
 	 * Contains vast array of internal APIs.
@@ -2350,3 +2358,6 @@ declare namespace Spicetify {
 		function toLocaleUpperCase(text: string): string;
 	}
 }
+}
+
+export {};
