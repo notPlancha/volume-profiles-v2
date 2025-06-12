@@ -38,10 +38,8 @@ Then do `npm run setup` (or `bun run setup`). This will restore, backup and enab
 
 ## Notes
 
-* This package uses uzairfarooq's [arrive.js](https://github.com/uzairfarooq/arrive) and franciscop's [umbrella js](https://github.com/franciscop/umbrella)
-* It's possible that an update to spotify or spicetify will break your saved volumes, but I've yet to experience this. If this happens, try raising an issue on the github page
-[create issue](https://github.com/user/repository/issues/new)
-* Same thing for any other issue/bug
+It's possible that an update to spotify or spicetify will break your saved volumes, but I've yet to experience this. If this happens, try raising an issue on the github page
+[create issue](https://github.com/user/repository/issues/new). Same thing for any other issue/bug
 
 ## More
 

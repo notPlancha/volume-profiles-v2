@@ -1,6 +1,6 @@
 {
   "name": "volume-profiles",
-  "version": "3.0.0-a94d5e9",
+  "version": "3.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {
