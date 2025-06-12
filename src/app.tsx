@@ -20,11 +20,12 @@ async function main() {
         ) as boolean;
     },
   );
-  var middle = new VolumeProfile("middle", 50, "medium", "f14");
-  var left = new VolumeProfile("left", 30, "low", "f13");
-  var right = new VolumeProfile("right", 80, "high", "f15");
-  for (const profile of [right, middle, left]) {
-    profile.registerProfile();
+  const left = new VolumeProfile("left", 30, "low", "f13");
+  const middle = new VolumeProfile("middle", 50, "medium", "f14");
+  const right = new VolumeProfile("right", 80, "high", "f15");
+  for (const profile of [left, middle, right]) {
+    // Better to have it here to make it more explicit
+    profile.registerSetting();
   }
   VolumeProfile.SettingsSectionRegister();
 }
