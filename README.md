@@ -26,7 +26,7 @@ Feel free to raise any issue or pull request.
 
 ### Setup
 
-After cloning and `npm i` (or `bun i`), it's important to add the extension to `config-xpui.ini` (run `spicetify -c` to find out the path):
+Run `bun install` (or npm install). This will install all dependencies, restore, backup and enable devtools for spotify, add a pre-commit hook to build `volume-profiles.js` before every commit, and add `volume-profiles.js` to `config-xpui.ini` (in `spicetify -c`). The commands are visible on package.json.
 
 ```ini
 extensions = volume-profiles.js
@@ -34,7 +34,7 @@ extensions = volume-profiles.js
 extensions = volume-profiles.js | someotherextension.js
 ```
 
-Then do `npm run setup` (or `bun run setup`). This will restore, backup and enable devtools for spotify; and add add a pre-commit that builds `volume-profiles.js` before every commit. The commands available are visible on `package.json`
+TO run the extension, run `bun run build` (or `npm run build`).
 
 ## Notes
 

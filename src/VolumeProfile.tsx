@@ -103,7 +103,7 @@ export class VolumeProfile {
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
   }
-  private readonly _id: string;
+  public readonly _id: string;
   private _old_bind: Bind | undefined;
   public get localStorageId(): string {
     return VolumeProfile.localStorageIdPrefix + this._id;

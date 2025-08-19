@@ -1,11 +1,12 @@
 {
   "name": "volume-profiles",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "private": true,
   "license": "MIT",
   "scripts": {
-    "setup": "spicetify restore && spicetify backup && spicetify enable-devtools",
-    "postsetup": "lefthook install",
+    "postinstall": "bun setup",
+    "setup": "spicetify restore backup && spicetify enable-devtools && lefthook install",
+    "postsetup": "bun setup.js",
     "upgradeDeps": "bun update",
     "audit": "bun audit",
     "lint": "biome check --write",
