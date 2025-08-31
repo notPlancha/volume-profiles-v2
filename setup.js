@@ -1,5 +1,6 @@
 const { execSync } = require('child_process');
 const fs = require('fs');
+const ini = require('ini');
 
 // Add volume-profiles.js to config-xpui.ini extensions
 function addExtensionToConfig() {
@@ -10,21 +11,19 @@ function addExtensionToConfig() {
       console.error('config-xpui.ini not found:', configPath);
       return;
     }
-    let config = fs.readFileSync(configPath, 'utf8');
-    const extLineRegex = /^extensions\s*=.*$/m;
+    let configRaw = fs.readFileSync(configPath, 'utf8');
+    let config = ini.parse(configRaw);
     const extName = 'volume-profiles.js';
-    if (extLineRegex.test(config)) {
-      // Update existing extensions line
-      config = config.replace(extLineRegex, (line) => {
-        if (line.includes(extName)) return line; // already present
-        // Add extension, handle vertical bar
-        return line.replace(/=\s*/, '= ') + (line.trim().endsWith('|') ? '' : ' |') + ' ' + extName;
-      });
+    
+    // check if extname is already in AdditionalOptions.extensions
+    if (config.AdditionalOptions.extensions.includes(extName)) {
+      console.log(`${extName} already in extensions.`);
+      return;
+    } else if (config.AdditionalOptions.extensions.trim() == "") {
+      config.AdditionalOptions.extensions = extName;
     } else {
-      // Add new extensions line
-      config += `\nextensions = ${extName}\n`;
+      config.AdditionalOptions.extensions += ` | ${extName}`;
     }
-    fs.writeFileSync(configPath, config, 'utf8');
     console.log(`Added ${extName} to extensions in config-xpui.ini.`);
   } catch (err) {
     console.error('Failed to update config-xpui.ini:', err.message);

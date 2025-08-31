@@ -1,12 +1,13 @@
 {
   "name": "volume-profiles",
-  "version": "3.0.1",
+  "version": "3.0.2-28924c8",
   "private": true,
   "license": "MIT",
   "scripts": {
     "postinstall": "bun setup",
-    "setup": "spicetify restore backup && spicetify enable-devtools && lefthook install",
-    "postsetup": "bun setup.js",
+    "presetup": "bun setup.js",
+    "setup": "spicetify restore backup && spicetify enable-devtools",
+    "postsetup": "lefthook install",
     "upgradeDeps": "bun update",
     "audit": "bun audit",
     "lint": "biome check --write",
@@ -23,6 +24,7 @@
     "@types/mousetrap": "^1.6.15",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "ini": "^5.0.0",
     "lefthook": "^1.11.13",
     "spicetify-creator": "^1.0.17"
   },

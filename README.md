@@ -34,7 +34,9 @@ extensions = volume-profiles.js
 extensions = volume-profiles.js | someotherextension.js
 ```
 
-TO run the extension, run `bun run build` (or `npm run build`).
+Note: To skip these scripts you can do `bun install --ignore-scripts` (or `npm install --ignore-scripts`).
+
+To run the extension, run `bun run build` (or `npm run build`).
 
 ## Notes
 
