@@ -46,7 +46,7 @@ export class VolumeProfile {
     );
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
-
+  
   constructor(
     id: string,
     defaultVolume: number,
@@ -77,15 +77,16 @@ export class VolumeProfile {
           ${path}
       </svg>
     `;
+    // https://github.com/spicetify/cli/blob/561c9df514900d6f297c08b4c9edf14d1fdbeba3/jsHelper/spicetifyWrapper.js#L2328
     this.button = new Spicetify.Playbar.Button(
       `Volume Profile (${this._id})`,
       icon_svg,
       (self) => {
         Spicetify.Player.setVolume(this.volume / 100);
       },
-      false,
-      false,
-      true,
+      false, // disabled
+      false, // active
+      false  // registerOnCreate
     );
     this.button.element.addEventListener("contextmenu", (ev) => {
       if (VolumeProfile.ToggleSettings) {
@@ -156,9 +157,12 @@ export class VolumeProfile {
       Number(value) > 100
     );
   }
-
-  public registerSetting() {
-    VolumeProfile.SettingsSection.addInput(
+  private registerButton() {
+    // TODO: if this is not enough, then introduce MutationObserver
+    this.button.register();
+  }
+  private registerSetting() {
+       VolumeProfile.SettingsSection.addInput(
       this.settingId,
       `Volume of Profile "${this._id}"`,
       this.toString(),
@@ -184,6 +188,10 @@ export class VolumeProfile {
         ) as string;
       },
     );
+  }
+  public register() {
+    this.registerButton();
+    this.registerSetting();
   }
 
   public toString(): string {

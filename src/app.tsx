@@ -24,10 +24,8 @@ async function main() {
   const middle = new VolumeProfile("middle", 50, "medium", "f14");
   const right = new VolumeProfile("right", 80, "high", "f15");
   for (const [i, profile] of [left, middle, right].entries()) {
-    setTimeout(() => {
-      profile.registerSetting();
-      console.log(`Registered ${profile._id} volume profile`);
-    }, i * 10);
+    profile.register();
+    console.log(`Registered ${profile._id} volume profile`);
   }
   VolumeProfile.SettingsSectionRegister();
 }
