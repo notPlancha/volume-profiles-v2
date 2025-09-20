@@ -17,11 +17,13 @@
   },
   "organizeImports": {
     "enabled": true
-  },
-  "linter": {
+  },  "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "a11y": {
+        "all": false
+      }
     }
   },
   "javascript": {

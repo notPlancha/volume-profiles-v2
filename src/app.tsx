@@ -1,4 +1,5 @@
 import { VolumeProfile } from "./VolumeProfile";
+import type { VolumeProfileIcon } from "./VolumeProfile";
 
 async function main() {
   while (
@@ -8,15 +9,23 @@ async function main() {
   ) {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
+  await new Promise((resolve) => setTimeout(resolve, 2000))
 
-  const left = new VolumeProfile("left", 30, "low", "f13");
-  const middle = new VolumeProfile("middle", 50, "medium", "f14");
-  const right = new VolumeProfile("right", 80, "high", "f15");
-  for (const [i, profile] of [left, middle, right].entries()) {
-    profile.register();
+
+  // const buttonToClone = document.querySelector("button[data-testid=control-button-npv]") as HTMLButtonElement;
+  const whereToPut = document.querySelector(".main-nowPlayingBar-extraControls") as HTMLElement;
+  const profileConfigs = [
+    { id: "right",  defaultVolume: 80, label: "high",   key: "f15" },
+    { id: "middle", defaultVolume: 50, label: "medium", key: "f14" },
+    { id: "left",   defaultVolume: 30, label: "low",    key: "f13" },
+
+  ];
+
+  for (const { id, defaultVolume, label, key } of profileConfigs) {
+    const profile = new VolumeProfile(id, defaultVolume, label as VolumeProfileIcon, key);
+    profile.register(whereToPut);
     console.log(`Registered ${profile._id} volume profile`);
   }
-
 
   VolumeProfile.SettingsSectionRegister();
   // const observer = new MutationObserver(() => {});

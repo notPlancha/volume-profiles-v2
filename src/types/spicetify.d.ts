@@ -1,4 +1,4 @@
-// https://github.com/spicetify/cli/blob/5146df55e7fcea247e43aa1b0e33f3ba36cd205d/globals.d.ts modified + Mousetrap
+// https://github.com/spicetify/cli/blob/1e6d31227342e415f18409963709d6f92a3da310/globals.d.ts modified + Mousetrap
 // Copyright (C) 2025 spicetify-cli
 // Licensed under the GNU LESSER GENERAL PUBLIC LICENSE. See https://github.com/spicetify/cli/blob/main/LICENSE file for details.
 
@@ -1416,9 +1416,9 @@ declare global {
     }
 
     /** React instance to create components */
-    const React: any;
+    const React: typeof import("react");
     /** React DOM instance to render and mount components */
-    const ReactDOM: any;
+    const ReactDOM: typeof import("react-dom") & typeof import("react-dom/client");;
     /** React DOM Server instance to render components to string */
     const ReactDOMServer: any;
 
@@ -1535,7 +1535,7 @@ declare global {
         /**
          * Label to display in the tooltip
          */
-        label: string;
+        label: string | React.ReactNode;
         /**
          * The child element that the tooltip will be attached to
          * and will display when hovered over
@@ -1935,11 +1935,13 @@ declare global {
           icon: Icon | string,
           onClick: (self: Button) => void,
           disabled?: boolean,
+          isRight?: boolean,
         );
         label: string;
         icon: string;
         onClick: (self: Button) => void;
         disabled: boolean;
+        isRight: boolean;
         element: HTMLButtonElement;
         tippy: any;
       }

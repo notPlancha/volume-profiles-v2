@@ -1,6 +1,6 @@
 import { SettingsSection } from "spcr-settings";
 
-type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnly";
+export type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnly";
 type Bind = string;
 
 export class VolumeProfile {
@@ -20,6 +20,22 @@ export class VolumeProfile {
     get mute() {
       return `${VolumeProfile.icons.speakerOnly}<path d="M10.116 1.5A.75.75 0 008.991.85l-6.925 4a3.642 3.642 0 00-1.33 4.967 3.639 3.639 0 001.33 1.332l6.925 4a.75.75 0 001.125-.649v-1.906a4.73 4.73 0 01-1.5-.694v1.3L2.817 9.852a2.141 2.141 0 01-.781-2.92c.187-.324.456-.594.78-.782l5.8-3.35v1.3c.45-.313.956-.55 1.5-.694V1.5z"></path>`;
     },
+    fromString(icon: VolumeProfileIcon): string {
+      switch (icon) {
+        case "high":
+          return VolumeProfile.icons.high;
+        case "medium":
+          return VolumeProfile.icons.medium;
+        case "low":
+          return VolumeProfile.icons.low;
+        case "mute":
+          return VolumeProfile.icons.mute;
+        case "speakerOnly":
+          return VolumeProfile.icons.speakerOnly;
+        default:
+          throw `Invalid icon string: ${icon}`;
+      }
+    },
   };
 
   private static Ids = {
@@ -35,7 +51,7 @@ export class VolumeProfile {
       "volume-profile-settings",
     ),
   };
-  private button: Spicetify.Playbar.Button;
+  private button: JSX.Element;
 
   public static get ToggleSettings(): boolean {
     return VolumeProfile.Settings.section.getFieldValue(
@@ -55,44 +71,22 @@ export class VolumeProfile {
     id: string,
     defaultVolume: number,
     icon: VolumeProfileIcon,
-    bind: Bind | undefined = undefined,
+    bind?: Bind,
   ) {
     this._id = id;
-    let path = "";
-    switch (icon) {
-      case "high":
-        path = VolumeProfile.icons.high;
-        break;
-      case "medium":
-        path = VolumeProfile.icons.medium;
-        break;
-      case "low":
-        path = VolumeProfile.icons.low;
-        break;
-      case "mute":
-        path = VolumeProfile.icons.mute;
-        break;
-      case "speakerOnly":
-        path = VolumeProfile.icons.speakerOnly;
-        break;
-    }
     const icon_svg = `
       <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
-          ${path}
+          ${VolumeProfile.icons.fromString(icon)}
       </svg>
     `;
     // https://github.com/spicetify/cli/blob/561c9df514900d6f297c08b4c9edf14d1fdbeba3/jsHelper/spicetifyWrapper.js#L2328
-    this.button = new Spicetify.Playbar.Button(
-      `Volume Profile (${this._id})`,
-      icon_svg,
-      (self) => {
-        Spicetify.Player.setVolume(this.volume / 100);
-      },
-      false, // disabled
-      false, // active
-      false, // registerOnCreate
-    );
-    this.button.element.addEventListener("contextmenu", (ev) => {
+    this.button = (
+      <ButtonElement
+        icon={icon}
+        onClick={(ev) => {
+          Spicetify.Player.setVolume(this.volume / 100);
+        }}
+        onContextMenu={(ev) => {
       if (VolumeProfile.ToggleSettings) {
         this.volume = Spicetify.Player.getVolume() * 100;
         Spicetify.showNotification(
@@ -103,8 +97,16 @@ export class VolumeProfile {
           this.volume.toString(),
         );
         VolumeProfile.Settings.section.rerender();
+      } else {
+        ev.preventDefault();
+        ev.stopPropagation();
       }
-    });
+        }}
+        active={false}
+        activeDot={false}
+      />
+    );
+    // Ensure volume is valid
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
   }
@@ -172,8 +174,10 @@ export class VolumeProfile {
       Number(value) > 100
     );
   }
-  private registerButton() {
-    this.button.register();
+  private registerButton(whereToPut: HTMLElement) {
+    Spicetify.ReactDOM.createRoot(whereToPut).render(this.button);
+  
+    // whereToPut.insertBefore(this.button.element, whereToPut.firstChild);
   }
   private registerSetting() {
     VolumeProfile.Settings.section.addInput(
@@ -203,8 +207,8 @@ export class VolumeProfile {
       },
     );
   }
-  public register() {
-    this.registerButton();
+  public register(whereToPut: HTMLElement) {
+    this.registerButton(whereToPut);
     this.registerSetting();
   }
 
@@ -213,7 +217,7 @@ export class VolumeProfile {
   }
 
   public click() {
-    this.button.element.click();
+    this.button.props.onClick?.({} as React.MouseEvent);
   }
 
   public registerBind(bind: Bind) {
@@ -227,3 +231,28 @@ export class VolumeProfile {
     });
   }
 }
+
+
+interface ButtonElementProps {
+  icon: VolumeProfileIcon;
+  onClick?: (ev: React.MouseEvent) => void;
+  onContextMenu?: (ev: React.MouseEvent) => void;
+  active?: boolean;
+  activeDot?: boolean;
+}
+
+const ButtonElement: React.FC<ButtonElementProps> = Spicetify.React.memo(({ icon, onClick, onContextMenu, active = false, activeDot = false}) => {
+  return (
+    <button 
+      className={
+        `Button-buttonTertiary-small-iconOnly-useBrowserDefaultFocusStyle main-genericButton-button ${active ? "main-genericButton-buttonActive" : ""} ${activeDot && active ? "main-genericButton-buttonActiveDot" : ""}` // TODO use Spicetify.classnames instead
+      }
+      onClick={onClick}
+      onContextMenu={onContextMenu}
+    >
+      <span>
+        <svg>{VolumeProfile.icons.fromString(icon)}</svg>
+      </span>
+    </button>
+  );
+});
