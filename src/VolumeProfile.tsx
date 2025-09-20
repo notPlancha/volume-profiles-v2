@@ -51,7 +51,7 @@ export class VolumeProfile {
       "volume-profile-settings",
     ),
   };
-  private button: JSX.Element;
+  private button: HTMLButtonElement;
 
   public static get ToggleSettings(): boolean {
     return VolumeProfile.Settings.section.getFieldValue(
@@ -66,7 +66,6 @@ export class VolumeProfile {
     );
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
-
   constructor(
     id: string,
     defaultVolume: number,
@@ -74,38 +73,31 @@ export class VolumeProfile {
     bind?: Bind,
   ) {
     this._id = id;
-    const icon_svg = `
-      <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
+    
+    this.button = document.createElement('button');
+    this.button.className = 'Button-buttonTertiary-small-iconOnly-useBrowserDefaultFocusStyle main-genericButton-button';
+    this.button.innerHTML = `
+      <span>
+        <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
           ${VolumeProfile.icons.fromString(icon)}
-      </svg>
+        </svg>
+      </span>
     `;
-    // https://github.com/spicetify/cli/blob/561c9df514900d6f297c08b4c9edf14d1fdbeba3/jsHelper/spicetifyWrapper.js#L2328
-    this.button = (
-      <ButtonElement
-        icon={icon}
-        onClick={(ev) => {
-          Spicetify.Player.setVolume(this.volume / 100);
-        }}
-        onContextMenu={(ev) => {
-      if (VolumeProfile.ToggleSettings) {
-        this.volume = Spicetify.Player.getVolume() * 100;
-        Spicetify.showNotification(
-          `Volume of "${this._id}" changed to ${this.toString()}`,
-        );
-        VolumeProfile.Settings.section.setFieldValue(
-          this.settingId,
-          this.volume.toString(),
-        );
-        VolumeProfile.Settings.section.rerender();
-      } else {
-        ev.preventDefault();
-        ev.stopPropagation();
-      }
-        }}
-        active={false}
-        activeDot={false}
-      />
-    );
+    this.button.addEventListener('click', (ev) => {
+      Spicetify.Player.setVolume(this.volume / 100);
+    });
+    this.button.addEventListener('contextmenu', (ev) => {
+      this.volume = Spicetify.Player.getVolume() * 100;
+      Spicetify.showNotification(
+        `Volume of "${this._id}" changed to ${this.toString()}`,
+      );
+      VolumeProfile.Settings.section.setFieldValue(
+        this.settingId,
+        this.volume.toString(),
+      );
+      VolumeProfile.Settings.section.rerender();
+    });
+    
     // Ensure volume is valid
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
@@ -173,11 +165,8 @@ export class VolumeProfile {
       Number(value) < 0 ||
       Number(value) > 100
     );
-  }
-  private registerButton(whereToPut: HTMLElement) {
-    Spicetify.ReactDOM.createRoot(whereToPut).render(this.button);
-  
-    // whereToPut.insertBefore(this.button.element, whereToPut.firstChild);
+  }  private registerButton(whereToPut: HTMLElement) {
+    whereToPut.insertBefore(this.button, whereToPut.firstChild);
   }
   private registerSetting() {
     VolumeProfile.Settings.section.addInput(
@@ -215,9 +204,8 @@ export class VolumeProfile {
   public toString(): string {
     return this.volume.toFixed(2);
   }
-
   public click() {
-    this.button.props.onClick?.({} as React.MouseEvent);
+    this.button.click();
   }
 
   public registerBind(bind: Bind) {
@@ -232,27 +220,3 @@ export class VolumeProfile {
   }
 }
 
-
-interface ButtonElementProps {
-  icon: VolumeProfileIcon;
-  onClick?: (ev: React.MouseEvent) => void;
-  onContextMenu?: (ev: React.MouseEvent) => void;
-  active?: boolean;
-  activeDot?: boolean;
-}
-
-const ButtonElement: React.FC<ButtonElementProps> = Spicetify.React.memo(({ icon, onClick, onContextMenu, active = false, activeDot = false}) => {
-  return (
-    <button 
-      className={
-        `Button-buttonTertiary-small-iconOnly-useBrowserDefaultFocusStyle main-genericButton-button ${active ? "main-genericButton-buttonActive" : ""} ${activeDot && active ? "main-genericButton-buttonActiveDot" : ""}` // TODO use Spicetify.classnames instead
-      }
-      onClick={onClick}
-      onContextMenu={onContextMenu}
-    >
-      <span>
-        <svg>{VolumeProfile.icons.fromString(icon)}</svg>
-      </span>
-    </button>
-  );
-});
