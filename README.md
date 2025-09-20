@@ -26,7 +26,9 @@ Feel free to raise any issue or pull request.
 
 ### Setup
 
-Run `bun install` (or npm install). This will install all dependencies, restore, backup and enable devtools for spotify, add a pre-commit hook to build `volume-profiles.js` before every commit, and add `volume-profiles.js` to `config-xpui.ini` (in `spicetify -c`). The commands are visible on package.json.
+Run `bun install` (or npm install). This will install all dependencies, and enable devtools for spotify, add a pre-commit hook to build `volume-profiles.js` before every commit, and add `volume-profiles.js` to `config-xpui.ini` (in `spicetify -c`). The commands are visible on package.json.
+
+Don't forget to run `spicetify backup` if you haven't already.
 
 ```ini
 extensions = volume-profiles.js
