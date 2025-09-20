@@ -75,14 +75,15 @@ export class VolumeProfile {
     this._id = id;
     
     this.button = document.createElement('button');
-    this.button.className = 'Button-buttonTertiary-small-iconOnly-useBrowserDefaultFocusStyle main-genericButton-button';
+    this.button.className = 'Button-buttonTertiary-small-iconOnly-useBrowserDefaultFocusStyle main-genericButton-button e-91000-button-tertiary--icon-only'; // last one it so it centers for some reason
     this.button.innerHTML = `
-      <span>
-        <svg role="presentation" style="fill: currentColor" viewBox="0 0 16 16" height="16" width="16">
+      <span class="e-91000-button__icon-wrapper">
+        <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
           ${VolumeProfile.icons.fromString(icon)}
         </svg>
       </span>
-    `;
+    `; // TODO missing aria-label
+
     this.button.addEventListener('click', (ev) => {
       Spicetify.Player.setVolume(this.volume / 100);
     });

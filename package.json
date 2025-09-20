@@ -1,6 +1,6 @@
 {
   "name": "volume-profiles",
-  "version": "5.0.0-6381e00",
+  "version": "5.0.0-8e95746",
   "private": true,
   "license": "MIT",
   "scripts": {
@@ -17,11 +17,14 @@
     "watch": "spicetify-creator --watch"
   },
   "dependencies": {
+    "arrive": "^2.5.2",
     "spcr-settings": "^1.3.1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
+    "@types/arrive": "^2.4.4",
     "@types/mousetrap": "^1.6.15",
+    "@types/node": "^24.5.2",
     "@types/react": "18.3.1",
     "@types/react-dom": "18.3.1",
     "ini": "^5.0.0",
