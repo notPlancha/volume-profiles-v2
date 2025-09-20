@@ -9,17 +9,6 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
 
-  VolumeProfile.SettingsSection.addToggle(
-    "toggle-left-click-volume-profile",
-    "Set Volume Profile on left click",
-    VolumeProfile.ToggleSettings,
-    () => {
-      VolumeProfile.ToggleSettings =
-        VolumeProfile.SettingsSection.getFieldValue(
-          "toggle-left-click-volume-profile",
-        ) as boolean;
-    },
-  );
   const left = new VolumeProfile("left", 30, "low", "f13");
   const middle = new VolumeProfile("middle", 50, "medium", "f14");
   const right = new VolumeProfile("right", 80, "high", "f15");
@@ -27,6 +16,10 @@ async function main() {
     profile.register();
     console.log(`Registered ${profile._id} volume profile`);
   }
+
+
   VolumeProfile.SettingsSectionRegister();
+  // const observer = new MutationObserver(() => {});
+  // observer.observe;
 }
 export default main;

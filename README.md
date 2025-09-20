@@ -53,6 +53,7 @@ It's possible that an update to spotify or spicetify will break your saved volum
 
 ## TODO
 
+* Settings look ugly now for some reason
 * Add a way to put the buttons under the slider (and make that the default since the new Spotify sucks)
 * Add an overlay (the button turns green) when the volume matches current volume (so when clicked)
 * Round the volume when setting with right click

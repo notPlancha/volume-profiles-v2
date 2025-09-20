@@ -22,31 +22,35 @@ export class VolumeProfile {
     },
   };
 
-  private static SettingsRegistered = false;
-  private static ToggleSettingsId = "volume-profile-toggle-on-left-click";
-  private static settingIdPrefix = "settings-volume-profile-";
-  private static bindIdPrefix = "bind-volume-profile-";
-
-  public static SettingsSection = new SettingsSection(
-    "Volume Profile Settings",
-    "volume-profile-settings",
-  );
+  private static Ids = {
+    ToggleSettingsId: "volume-profile-toggle-on-left-click",
+    ToggleSettingsId2: "toggle-left-click-volume-profile", // TODO not sure why there's 2
+    settingIdPrefix: "settings-volume-profile-",
+    bindIdPrefix: "bind-volume-profile-",
+  };
+  private static Settings = {
+    isRegistered: false,
+    section: new SettingsSection(
+      "Volume Profile Settings",
+      "volume-profile-settings",
+    ),
+  };
   private button: Spicetify.Playbar.Button;
 
   public static get ToggleSettings(): boolean {
-    return VolumeProfile.SettingsSection.getFieldValue(
-      VolumeProfile.ToggleSettingsId,
+    return VolumeProfile.Settings.section.getFieldValue(
+      VolumeProfile.Ids.ToggleSettingsId,
     );
   }
 
   public static set ToggleSettings(value: boolean) {
-    VolumeProfile.SettingsSection.setFieldValue(
-      VolumeProfile.ToggleSettingsId,
+    VolumeProfile.Settings.section.setFieldValue(
+      VolumeProfile.Ids.ToggleSettingsId,
       value,
     );
   }
   private static localStorageIdPrefix = "localStorage-volume-profile-";
-  
+
   constructor(
     id: string,
     defaultVolume: number,
@@ -86,7 +90,7 @@ export class VolumeProfile {
       },
       false, // disabled
       false, // active
-      false  // registerOnCreate
+      false, // registerOnCreate
     );
     this.button.element.addEventListener("contextmenu", (ev) => {
       if (VolumeProfile.ToggleSettings) {
@@ -94,11 +98,11 @@ export class VolumeProfile {
         Spicetify.showNotification(
           `Volume of "${this._id}" changed to ${this.toString()}`,
         );
-        VolumeProfile.SettingsSection.setFieldValue(
+        VolumeProfile.Settings.section.setFieldValue(
           this.settingId,
           this.volume.toString(),
         );
-        VolumeProfile.SettingsSection.rerender();
+        VolumeProfile.Settings.section.rerender();
       }
     });
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
@@ -110,14 +114,14 @@ export class VolumeProfile {
     return VolumeProfile.localStorageIdPrefix + this._id;
   }
   public get settingId(): string {
-    return VolumeProfile.settingIdPrefix + this._id;
+    return VolumeProfile.Ids.settingIdPrefix + this._id;
   }
   public get volume(): number {
-    const volume = VolumeProfile.SettingsSection.getFieldValue(this.settingId);
+    const volume = VolumeProfile.Settings.section.getFieldValue(this.settingId);
     return Number(volume);
   }
   public set volume(value: number) {
-    VolumeProfile.SettingsSection.setFieldValue(
+    VolumeProfile.Settings.section.setFieldValue(
       this.settingId,
       value.toFixed(2),
     );
@@ -125,15 +129,15 @@ export class VolumeProfile {
 
   public get bind(): Bind {
     return (
-      VolumeProfile.SettingsSection.getFieldValue(
-        VolumeProfile.bindIdPrefix + this._id,
+      VolumeProfile.Settings.section.getFieldValue(
+        VolumeProfile.Ids.bindIdPrefix + this._id,
       ) || ""
     );
   }
 
   public set bind(value: Bind) {
-    VolumeProfile.SettingsSection.setFieldValue(
-      VolumeProfile.bindIdPrefix + this._id,
+    VolumeProfile.Settings.section.setFieldValue(
+      VolumeProfile.Ids.bindIdPrefix + this._id,
       value,
     );
     this.registerBind(value);
@@ -141,9 +145,20 @@ export class VolumeProfile {
   }
 
   public static SettingsSectionRegister() {
-    if (!VolumeProfile.SettingsRegistered) {
-      VolumeProfile.SettingsSection.pushSettings().then(() => {
-        VolumeProfile.SettingsRegistered = true;
+    if (!VolumeProfile.Settings.isRegistered) {
+      VolumeProfile.Settings.section.addToggle(
+        VolumeProfile.Ids.ToggleSettingsId2,
+        "Set Volume Profile on left click",
+        VolumeProfile.ToggleSettings,
+        () => {
+          VolumeProfile.ToggleSettings =
+            VolumeProfile.Settings.section.getFieldValue(
+              VolumeProfile.Ids.ToggleSettingsId2,
+            ) as boolean;
+        },
+      );
+      VolumeProfile.Settings.section.pushSettings().then(() => {
+        VolumeProfile.Settings.isRegistered = true;
       });
     } else {
       throw "Settings already registered";
@@ -158,33 +173,32 @@ export class VolumeProfile {
     );
   }
   private registerButton() {
-    // TODO: if this is not enough, then introduce MutationObserver
     this.button.register();
   }
   private registerSetting() {
-       VolumeProfile.SettingsSection.addInput(
+    VolumeProfile.Settings.section.addInput(
       this.settingId,
       `Volume of Profile "${this._id}"`,
       this.toString(),
       () => {
-        const changedVolume = VolumeProfile.SettingsSection.getFieldValue(
+        const changedVolume = VolumeProfile.Settings.section.getFieldValue(
           this.settingId,
         ) as string;
         if (VolumeProfile.isValidVolume(changedVolume)) {
-          VolumeProfile.SettingsSection.setFieldValue(
+          VolumeProfile.Settings.section.setFieldValue(
             this.settingId,
             changedVolume,
           );
         }
       },
     );
-    VolumeProfile.SettingsSection.addInput(
-      VolumeProfile.bindIdPrefix + this._id,
+    VolumeProfile.Settings.section.addInput(
+      VolumeProfile.Ids.bindIdPrefix + this._id,
       `Bind for Profile "${this._id}"`,
       this.bind,
       () => {
-        this.bind = VolumeProfile.SettingsSection.getFieldValue(
-          VolumeProfile.bindIdPrefix + this._id,
+        this.bind = VolumeProfile.Settings.section.getFieldValue(
+          VolumeProfile.Ids.bindIdPrefix + this._id,
         ) as string;
       },
     );
