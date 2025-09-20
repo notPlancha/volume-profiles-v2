@@ -24,6 +24,7 @@ function addExtensionToConfig() {
     } else {
       config.AdditionalOptions.extensions += ` | ${extName}`;
     }
+    fs.writeFileSync(configPath, ini.stringify(config));
     console.log(`Added ${extName} to extensions in config-xpui.ini.`);
   } catch (err) {
     console.error('Failed to update config-xpui.ini:', err.message);
