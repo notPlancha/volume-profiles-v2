@@ -4,6 +4,7 @@ export type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnl
 type Bind = string;
 
 export class VolumeProfile {
+  // TODO REMOVE
   public static icons = {
     get low() {
       return '<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path>';
@@ -51,7 +52,7 @@ export class VolumeProfile {
       "volume-profile-settings",
     ),
   };
-  private button: HTMLButtonElement;
+  private button: Spicetify.Playbar.Button;
 
   public static get ToggleSettings(): boolean {
     return VolumeProfile.Settings.section.getFieldValue(
@@ -65,7 +66,12 @@ export class VolumeProfile {
       value,
     );
   }
-  private static localStorageIdPrefix = "localStorage-volume-profile-";
+
+  private get element(): HTMLElement {
+    return this.button.element;
+  }
+
+  private static localStorageIdPrefix = "localStorage-volume-profile-"; // TODO move to Ids
   constructor(
     id: string,
     defaultVolume: number,
@@ -74,21 +80,23 @@ export class VolumeProfile {
   ) {
     this._id = id;
     
-    this.button = document.createElement('button');
-    this.button.className = 'Button-buttonTertiary-small-iconOnly-isUsingKeyboard-useBrowserDefaultFocusStyle e-91000-overflow-wrap-anywhere e-91000-button-tertiary--icon-only main-genericButton-button';
-    this.button.id = `volume-profile-${this._id}`;
-    this.button.innerHTML = `
-      <span class="e-91000-button__icon-wrapper">
-        <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
-          ${VolumeProfile.icons.fromString(icon)}
-        </svg>
-      </span>
-    `; // TODO missing aria-label
+    this.button = new Spicetify.Playbar.Button(
+      `Volume Profile: ${this._id}`,
+      Spicetify.SVGIcons["volume-two-wave"],
+      (self: Spicetify.Playbar.Button) => {
+        Spicetify.Player.setVolume(this.volume / 100);
+      },
+      false,
+      false,
+      true,
+    );
 
-    this.button.addEventListener('click', (ev) => {
-      Spicetify.Player.setVolume(this.volume / 100);
-    });
-    this.button.addEventListener('contextmenu', (ev) => {
+    // const buttonSvg = `
+    //     <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
+    //       ${VolumeProfile.icons.fromString(icon)}
+    //     </svg>
+    // `; // TODO REMOVE
+    this.element.addEventListener('contextmenu', (ev) => {
       this.volume = Spicetify.Player.getVolume() * 100;
       Spicetify.showNotification(
         `Volume of "${this._id}" changed to ${this.toString()}`,
@@ -160,6 +168,7 @@ export class VolumeProfile {
       throw "Settings already registered";
     }
   }
+
   public static isValidVolume(value: string): boolean {
     return !(
       value === "" ||
@@ -167,8 +176,9 @@ export class VolumeProfile {
       Number(value) < 0 ||
       Number(value) > 100
     );
-  }  private registerButton(whereToPut: HTMLElement) {
-    whereToPut.insertBefore(this.button, whereToPut.firstChild);
+  } 
+  private registerButton() {
+    this.button.register();
   }
   private registerSetting() {
     VolumeProfile.Settings.section.addInput(
@@ -198,8 +208,8 @@ export class VolumeProfile {
       },
     );
   }
-  public register(whereToPut: HTMLElement) {
-    this.registerButton(whereToPut);
+  public register() {
+    this.registerButton();
     this.registerSetting();
   }
 
@@ -207,7 +217,7 @@ export class VolumeProfile {
     return this.volume.toFixed(2);
   }
   public click() {
-    this.button.click();
+    this.element.click();
   }
 
   public registerBind(bind: Bind) {
