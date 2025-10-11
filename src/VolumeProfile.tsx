@@ -80,9 +80,15 @@ export class VolumeProfile {
   ) {
     this._id = id;
     
+    const buttonSvg = `
+        <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
+          ${VolumeProfile.icons.fromString(icon)}
+        </svg>
+    `;
+
     this.button = new Spicetify.Playbar.Button(
       `Volume Profile: ${this._id}`,
-      Spicetify.SVGIcons["volume-two-wave"],
+      buttonSvg,
       (self: Spicetify.Playbar.Button) => {
         Spicetify.Player.setVolume(this.volume / 100);
       },
@@ -90,12 +96,9 @@ export class VolumeProfile {
       false,
       true,
     );
+    this.element.id = `volume-profile-button-${this._id}`;
+    this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
 
-    // const buttonSvg = `
-    //     <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
-    //       ${VolumeProfile.icons.fromString(icon)}
-    //     </svg>
-    // `; // TODO REMOVE
     this.element.addEventListener('contextmenu', (ev) => {
       this.volume = Spicetify.Player.getVolume() * 100;
       Spicetify.showNotification(
@@ -107,7 +110,6 @@ export class VolumeProfile {
       );
       VolumeProfile.Settings.section.rerender();
     });
-    
     // Ensure volume is valid
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
