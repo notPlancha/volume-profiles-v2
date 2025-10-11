@@ -9,4 +9,4 @@ pre-push:
     3_ammend:
       run: git add . && git commit --amend --no-edit
     4_pop:
-      run: git stash pop
+      run: git stash pop || echo "No stash to pop"

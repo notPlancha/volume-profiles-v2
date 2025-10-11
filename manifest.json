@@ -2,7 +2,7 @@
   "name": "Volume Profiles",
   "description": "A Spicetify extension where you can save volumes to use for later",
   "preview": "assets/buttons_square.png",
-  "main": "dist/volume-profiles-5.0.1-beta.2.js",
+  "main": "dist/volume-profiles-5.0.1-beta.3.js",
   "readme": "marketplace.readme.md",
   "authors": [
     {
