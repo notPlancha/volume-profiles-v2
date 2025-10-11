@@ -4,7 +4,6 @@ export type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnl
 type Bind = string;
 
 export class VolumeProfile {
-  // TODO REMOVE
   public static icons = {
     get low() {
       return '<path d="M9.741.85a.75.75 0 01.375.65v13a.75.75 0 01-1.125.65l-6.925-4a3.642 3.642 0 01-1.33-4.967 3.639 3.639 0 011.33-1.332l6.925-4a.75.75 0 01.75 0zm-6.924 5.3a2.139 2.139 0 000 3.7l5.8 3.35V2.8l-5.8 3.35zm8.683 4.29V5.56a2.75 2.75 0 010 4.88z"></path>';
@@ -39,39 +38,64 @@ export class VolumeProfile {
     },
   };
 
-  private static Ids = {
+  private static IdPrefixes = {
     ToggleSettingsId: "volume-profile-toggle-on-left-click",
     ToggleSettingsId2: "toggle-left-click-volume-profile", // TODO not sure why there's 2
+    SettingsSectionId: "volume-profile-settings",
     settingIdPrefix: "settings-volume-profile-",
     bindIdPrefix: "bind-volume-profile-",
+    localStorageIdPrefix: "localStorage-volume-profile-",
+    elementIdPrefix: "volume-profile-button-",
   };
-  private static Settings = {
+  
+  public static Settings = {
+    // TODO this is a mess, refactor before needing to change. until then dont touch
     isRegistered: false,
     section: new SettingsSection(
       "Volume Profile Settings",
-      "volume-profile-settings",
+      VolumeProfile.IdPrefixes.SettingsSectionId,
     ),
+    set ToggleSettings(value: boolean) {
+      VolumeProfile.Settings.section.setFieldValue(
+        VolumeProfile.IdPrefixes.ToggleSettingsId,
+        value,
+      );
+    },
+    get ToggleSettings(): boolean {
+      return VolumeProfile.Settings.section.getFieldValue(
+        VolumeProfile.IdPrefixes.ToggleSettingsId,
+      );
+    },
+    register() {
+      if (!VolumeProfile.Settings.isRegistered) {
+        VolumeProfile.Settings.section.addToggle(
+          VolumeProfile.IdPrefixes.ToggleSettingsId2, // nameId
+          "Set Volume Profile on left click", // description
+          VolumeProfile.Settings.ToggleSettings, // default value
+          () => { // on change
+            VolumeProfile.Settings.ToggleSettings =
+              VolumeProfile.Settings.section.getFieldValue(
+                VolumeProfile.IdPrefixes.ToggleSettingsId2,
+              ) as boolean;
+          },
+        );
+        VolumeProfile.Settings.section.pushSettings().then(() => { // events
+          VolumeProfile.Settings.isRegistered = true;
+        });
+      } else {
+        throw "Settings already registered";
+      }
+    }
   };
+
   private button: Spicetify.Playbar.Button;
-
-  public static get ToggleSettings(): boolean {
-    return VolumeProfile.Settings.section.getFieldValue(
-      VolumeProfile.Ids.ToggleSettingsId,
-    );
+  public get elementId(): string {
+    return `${VolumeProfile.IdPrefixes.elementIdPrefix}${this._id}`;
   }
-
-  public static set ToggleSettings(value: boolean) {
-    VolumeProfile.Settings.section.setFieldValue(
-      VolumeProfile.Ids.ToggleSettingsId,
-      value,
-    );
-  }
-
-  private get element(): HTMLElement {
+  public get element(): HTMLElement {
     return this.button.element;
   }
 
-  private static localStorageIdPrefix = "localStorage-volume-profile-"; // TODO move to Ids
   constructor(
     id: string,
     defaultVolume: number,
@@ -79,7 +103,6 @@ export class VolumeProfile {
     bind?: Bind,
   ) {
     this._id = id;
-    
     const buttonSvg = `
         <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
           ${VolumeProfile.icons.fromString(icon)}
@@ -96,7 +119,7 @@ export class VolumeProfile {
       false,
       true,
     );
-    this.element.id = `volume-profile-button-${this._id}`;
+    this.element.id = this.elementId;
     this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
 
     this.element.addEventListener('contextmenu', (ev) => {
@@ -115,12 +138,11 @@ export class VolumeProfile {
     if (bind) this.bind = bind;
   }
   public readonly _id: string;
-  private _old_bind: Bind | undefined;
   public get localStorageId(): string {
-    return VolumeProfile.localStorageIdPrefix + this._id;
+    return VolumeProfile.IdPrefixes.localStorageIdPrefix + this._id;
   }
   public get settingId(): string {
-    return VolumeProfile.Ids.settingIdPrefix + this._id;
+    return VolumeProfile.IdPrefixes.settingIdPrefix + this._id;
   }
   public get volume(): number {
     const volume = VolumeProfile.Settings.section.getFieldValue(this.settingId);
@@ -136,40 +158,19 @@ export class VolumeProfile {
   public get bind(): Bind {
     return (
       VolumeProfile.Settings.section.getFieldValue(
-        VolumeProfile.Ids.bindIdPrefix + this._id,
+        VolumeProfile.IdPrefixes.bindIdPrefix + this._id,
       ) || ""
     );
   }
 
   public set bind(value: Bind) {
     VolumeProfile.Settings.section.setFieldValue(
-      VolumeProfile.Ids.bindIdPrefix + this._id,
+      VolumeProfile.IdPrefixes.bindIdPrefix + this._id,
       value,
     );
     this.registerBind(value);
-    this._old_bind = value;
   }
 
-  public static SettingsSectionRegister() {
-    if (!VolumeProfile.Settings.isRegistered) {
-      VolumeProfile.Settings.section.addToggle(
-        VolumeProfile.Ids.ToggleSettingsId2,
-        "Set Volume Profile on left click",
-        VolumeProfile.ToggleSettings,
-        () => {
-          VolumeProfile.ToggleSettings =
-            VolumeProfile.Settings.section.getFieldValue(
-              VolumeProfile.Ids.ToggleSettingsId2,
-            ) as boolean;
-        },
-      );
-      VolumeProfile.Settings.section.pushSettings().then(() => {
-        VolumeProfile.Settings.isRegistered = true;
-      });
-    } else {
-      throw "Settings already registered";
-    }
-  }
 
   public static isValidVolume(value: string): boolean {
     return !(
@@ -200,12 +201,12 @@ export class VolumeProfile {
       },
     );
     VolumeProfile.Settings.section.addInput(
-      VolumeProfile.Ids.bindIdPrefix + this._id,
+      VolumeProfile.IdPrefixes.bindIdPrefix + this._id,
       `Bind for Profile "${this._id}"`,
       this.bind,
       () => {
         this.bind = VolumeProfile.Settings.section.getFieldValue(
-          VolumeProfile.Ids.bindIdPrefix + this._id,
+          VolumeProfile.IdPrefixes.bindIdPrefix + this._id,
         ) as string;
       },
     );

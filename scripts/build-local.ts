@@ -1,6 +1,5 @@
 // https://github.com/spicetify/spicetify-creator/blob/main/packages/spicetify-creator/src/scripts.ts
 // export default async (settings: IExtensionSettings, outDirectory: string, watch: boolean, esbuildOptions: any, minify: boolean, inDirectory: string) => {
-// TODO add to read package.json
 import build from 'spicetify-creator/dist/buildExtension';
 import autoprefixer from 'autoprefixer';
 import { externalGlobalPlugin } from 'esbuild-plugin-external-global'

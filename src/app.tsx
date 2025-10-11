@@ -11,18 +11,17 @@ async function main() {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
   console.log("Volume Profiles loading...");
-    const profileConfigs = [
-    { id: "left",   defaultVolume: 30, label: "low",    key: "f13" },
-    { id: "middle", defaultVolume: 50, label: "medium", key: "f14" },
-    { id: "right",  defaultVolume: 80, label: "high",   key: "f15" },
-  ];
 
-  for (const { id, defaultVolume, label, key } of profileConfigs) {
-    const profile = new VolumeProfile(id, defaultVolume, label as VolumeProfileIcon, key);
-    profile.register(); // TODO I think this is auto registered
-    console.log(`Registered ${profile._id} volume profile`);
-  } 
-  VolumeProfile.SettingsSectionRegister();
-  console.log("Volume Profiles loaded");
+  const profiles = {
+    left: new VolumeProfile("left", 30, "low", "f13"),
+    middle: new VolumeProfile("middle", 50, "medium", "f14"),
+    right: new VolumeProfile("right", 80, "high", "f15"),
+  };
+
+  VolumeProfile.Settings.register();
+
+  document.arrive(`#${profiles.right.elementId}`, () => {
+    console.log("Volume Profiles loaded.");
+  });
 }
 export default main;

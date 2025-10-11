@@ -15,7 +15,6 @@
         "@types/node": "^24.5.2",
         "@types/react": "18.3.1",
         "@types/react-dom": "18.3.1",
-        "@types/semver": "^7.7.1",
         "ini": "^5.0.0",
         "lefthook": "^1.13.1",
         "semver": "^7.7.3",
@@ -64,8 +63,6 @@
     "@types/react-dom": ["@types/react-dom@18.3.1", "", { "dependencies": { "@types/react": "*" } }, "sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ=="],
 
     "@types/scheduler": ["@types/scheduler@0.16.8", "", {}, "sha512-WZLiwShhwLRmeV6zH+GkbOFT6Z6VklCItrDioxUnv+u4Ll+8vKeFySoFyK/0ctcRpOmwAicELfmys1sDc/Rw+A=="],
-
-    "@types/semver": ["@types/semver@7.7.1", "", {}, "sha512-FmgJfu+MOcQ370SD0ev7EI8TlCAfKYU+B4m5T3yXc1CiRN94g/SZPtsCkk506aUDtlMnFZvasDwHHUcZUEaYuA=="],
 
     "ansi-styles": ["ansi-styles@4.3.0", "", { "dependencies": { "color-convert": "^2.0.1" } }, "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="],
 

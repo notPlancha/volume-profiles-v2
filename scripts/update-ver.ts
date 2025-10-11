@@ -8,7 +8,7 @@ const version = packageJson.version;
 
 if (semver.prerelease(version)) {
   // If the version is a pre-release, we update it
-  const newVersion = semver.inc(version, 'prerelease', 'beta');
+  const newVersion = semver.inc(version, 'prerelease', 'dev');
   console.log(`Updating version from ${version} to ${newVersion}`);
   packageJson.version = newVersion;
   Bun.write(packagejsonPath, JSON.stringify(packageJson, null, 2)).then(() => {
