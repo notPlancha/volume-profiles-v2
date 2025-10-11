@@ -76,6 +76,7 @@ export class VolumeProfile {
     
     this.button = document.createElement('button');
     this.button.className = 'Button-buttonTertiary-small-iconOnly-isUsingKeyboard-useBrowserDefaultFocusStyle e-91000-overflow-wrap-anywhere e-91000-button-tertiary--icon-only main-genericButton-button';
+    this.button.id = `volume-profile-${this._id}`;
     this.button.innerHTML = `
       <span class="e-91000-button__icon-wrapper">
         <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">

@@ -1,7 +1,12 @@
-pre-commit:
+pre-push:
+  piped: true
+  parallel: false
   commands:
-    build:
-      run: bun run build-local && git add dist/*
-  scripts:
-    "update-ver.js":
-      runner: bun
+    1_stash:
+      run: git stash push --include-untracked
+    2_update:
+      run: bun scripts/update-ver.js && bun run build-local
+    3_ammend:
+      run: git add . && git commit --amend --no-edit
+    4_pop:
+      run: git stash pop

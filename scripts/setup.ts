@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
-const fs = require('fs');
-const ini = require('ini');
+import { execSync } from 'child_process';
+import fs from 'fs';
+import ini from 'ini';
 
 // Add volume-profiles.js to config-xpui.ini extensions
 function addExtensionToConfig() {
