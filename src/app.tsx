@@ -10,21 +10,31 @@ async function main() {
   ) {
     await new Promise((resolve) => setTimeout(resolve, 100));
   }
+  console.log("Volume Profiles loading...");
 
-  document.arrive(".main-nowPlayingBar-extraControls", { onceOnly: true }, (whereToPut) => {
-    const profileConfigs = [
-      { id: "right",  defaultVolume: 80, label: "high",   key: "f15" },
-      { id: "middle", defaultVolume: 50, label: "medium", key: "f14" },
-      { id: "left",   defaultVolume: 30, label: "low",    key: "f13" },
-    ];
+  const profiles = {
+    left: new VolumeProfile("left", 30, "low", "f13"),
+    middle: new VolumeProfile("middle", 50, "medium", "f14"),
+    right: new VolumeProfile("right", 80, "high", "f15"),
+  };
 
-    for (const { id, defaultVolume, label, key } of profileConfigs) {
-      const profile = new VolumeProfile(id, defaultVolume, label as VolumeProfileIcon, key);
-      profile.register(whereToPut as HTMLElement);
-      console.log(`Registered ${profile._id} volume profile`);
-    }
+  VolumeProfile.Settings.register();
 
-    VolumeProfile.SettingsSectionRegister();
+  /*
+    Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
+     and adding them with manual order breaks with the marketplace sometimes.
+    Hopefully this is more reliable.
+  */
+  document.arrive(`#${profiles.right.elementId}`, () => { // DONT MAKE IT ONCEONLY, NO POINT + MIGHT BREAK
+    console.log("Volume Profiles loaded.");
+    // get children of main-nowPlayingBar-extraControls
+    const extraControls = document.getElementsByClassName("main-nowPlayingBar-extraControls")[0];
+    if (!extraControls) { throw "Could not find main-nowPlayingBar-extraControls"; }
+    // check order
+    const extraControlsChildren = Array.from(extraControls.children);
+    // I was gonna do an if but not point
+    extraControls.insertBefore(profiles.left.element, profiles.middle.element);
+    extraControls.insertBefore(profiles.right.element, profiles.middle.element.nextSibling);
   });
 }
 export default main;
