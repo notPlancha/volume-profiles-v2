@@ -122,7 +122,7 @@ export class VolumeProfile {
     this.element.id = this.elementId;
     this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
 
-    this.element.addEventListener('contextmenu', (ev) => {
+    this.element.addEventListener('contextmenu', (ev) => { // contextmenu = right click
       this.volume = Spicetify.Player.getVolume() * 100;
       Spicetify.showNotification(
         `Volume of "${this._id}" changed to ${this.toString()}`,

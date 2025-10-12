@@ -20,8 +20,21 @@ async function main() {
 
   VolumeProfile.Settings.register();
 
-  document.arrive(`#${profiles.right.elementId}`, () => {
+  /*
+    Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
+     and adding them with manual order breaks with the marketplace sometimes.
+    Hopefully this is more reliable.
+  */
+  document.arrive(`#${profiles.right.elementId}`, () => { // DONT MAKE IT ONCEONLY, NO POINT + MIGHT BREAK
     console.log("Volume Profiles loaded.");
+    // get children of main-nowPlayingBar-extraControls
+    const extraControls = document.getElementsByClassName("main-nowPlayingBar-extraControls")[0];
+    if (!extraControls) { throw "Could not find main-nowPlayingBar-extraControls"; }
+    // check order
+    const extraControlsChildren = Array.from(extraControls.children);
+    // I was gonna do an if but not point
+    extraControls.insertBefore(profiles.left.element, profiles.middle.element);
+    extraControls.insertBefore(profiles.right.element, profiles.middle.element.nextSibling);
   });
 }
 export default main;
