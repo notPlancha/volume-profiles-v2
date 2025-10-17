@@ -17,9 +17,6 @@ async function main() {
     middle: new VolumeProfile("middle", 50, "medium", "f14"),
     right: new VolumeProfile("right", 80, "high", "f15"),
   };
-
-  VolumeProfile.Settings.register();
-
   /*
     Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
      and adding them with manual order breaks with the marketplace sometimes.
@@ -36,5 +33,7 @@ async function main() {
     extraControls.insertBefore(profiles.left.element, profiles.middle.element);
     extraControls.insertBefore(profiles.right.element, profiles.middle.element.nextSibling);
   });
+  
+  VolumeProfile.Settings.register();
 }
 export default main;

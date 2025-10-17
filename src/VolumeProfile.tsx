@@ -136,6 +136,8 @@ export class VolumeProfile {
     // Ensure volume is valid
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
+
+    this.register();
   }
   public readonly _id: string;
   public get localStorageId(): string {
