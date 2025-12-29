@@ -55,10 +55,7 @@ It's possible that an update to spotify or spicetify will break your saved volum
 
 ## TODO
 
-* Settings look ugly now for some reason
-* Add a way to put the buttons under the slider (and make that the default since the new Spotify sucks)
+* Add a way to put the buttons under the slider (and possibly make that the default)
 * Add an overlay (the button turns green) when the volume matches current volume (so when clicked)
 * Round the volume when setting with right click
 * A gif of the images (and testing if said gifs work on the marketplace)
-* Fix settings formating
-* Fix aria-label (the popup text that should be above the symbols)
