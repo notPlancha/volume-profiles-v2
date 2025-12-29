@@ -1,6 +1,5 @@
 import { VolumeProfile } from "./VolumeProfile";
 import type { VolumeProfileIcon } from "./VolumeProfile";
-require("arrive");
 
 async function main() {
   while (
@@ -17,23 +16,39 @@ async function main() {
     middle: new VolumeProfile("middle", 50, "medium", "f14"),
     right: new VolumeProfile("right", 80, "high", "f15"),
   };
-  /*
+  ensureOrder(profiles);
+  VolumeProfile.Settings.register();
+}
+export default main;
+
+
+async function ensureOrder(profiles: { left: VolumeProfile; middle: VolumeProfile; right: VolumeProfile }) {
+    /*
     Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
      and adding them with manual order breaks with the marketplace sometimes.
     Hopefully this is more reliable.
   */
-  document.arrive(`#${profiles.right.elementId}`, () => { // DONT MAKE IT ONCEONLY, NO POINT + MIGHT BREAK
-    console.log("Volume Profiles loaded.");
+    while (
+      document.getElementsByClassName("main-nowPlayingBar-extraControls").length === 0 ||
+      profiles.left.element.checkVisibility() === false ||
+      profiles.middle.element.checkVisibility() === false ||
+      profiles.right.element.checkVisibility() === false
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     // get children of main-nowPlayingBar-extraControls
-    const extraControls = document.getElementsByClassName("main-nowPlayingBar-extraControls")[0];
-    if (!extraControls) { throw "Could not find main-nowPlayingBar-extraControls"; }
+    const extraControls = document.getElementsByClassName(
+      "main-nowPlayingBar-extraControls",
+    )[0];
+    if (!extraControls) {
+      throw "Could not find main-nowPlayingBar-extraControls";
+    }
     // check order
     const extraControlsChildren = Array.from(extraControls.children);
     // I was gonna do an if but not point
     extraControls.insertBefore(profiles.left.element, profiles.middle.element);
-    extraControls.insertBefore(profiles.right.element, profiles.middle.element.nextSibling);
-  });
-  
-  VolumeProfile.Settings.register();
+    extraControls.insertBefore(
+      profiles.right.element,
+      profiles.middle.element.nextSibling,
+    );
 }
-export default main;
