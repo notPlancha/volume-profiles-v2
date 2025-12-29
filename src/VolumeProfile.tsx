@@ -1,6 +1,11 @@
 import { SettingsSection } from "spcr-settings";
 
-export type VolumeProfileIcon = "high" | "medium" | "low" | "mute" | "speakerOnly";
+export type VolumeProfileIcon =
+  | "high"
+  | "medium"
+  | "low"
+  | "mute"
+  | "speakerOnly";
 type Bind = string;
 
 export class VolumeProfile {
@@ -47,7 +52,7 @@ export class VolumeProfile {
     localStorageIdPrefix: "localStorage-volume-profile-",
     elementIdPrefix: "volume-profile-button-",
   };
-  
+
   public static Settings = {
     // TODO this is a mess, refactor before needing to change. until then dont touch
     isRegistered: false,
@@ -72,20 +77,22 @@ export class VolumeProfile {
           VolumeProfile.IdPrefixes.ToggleSettingsId2, // nameId
           "Set Volume Profile on left click", // description
           VolumeProfile.Settings.ToggleSettings, // default value
-          () => { // on change
+          () => {
+            // on change
             VolumeProfile.Settings.ToggleSettings =
               VolumeProfile.Settings.section.getFieldValue(
                 VolumeProfile.IdPrefixes.ToggleSettingsId2,
               ) as boolean;
           },
         );
-        VolumeProfile.Settings.section.pushSettings().then(() => { // events
+        VolumeProfile.Settings.section.pushSettings().then(() => {
+          // events
           VolumeProfile.Settings.isRegistered = true;
         });
       } else {
         throw "Settings already registered";
       }
-    }
+    },
   };
 
   private button: Spicetify.Playbar.Button;
@@ -122,7 +129,8 @@ export class VolumeProfile {
     this.element.id = this.elementId;
     this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
 
-    this.element.addEventListener('contextmenu', (ev) => { // contextmenu = right click
+    this.element.addEventListener("contextmenu", (ev) => {
+      // contextmenu = right click
       if (!VolumeProfile.Settings.ToggleSettings) {
         return;
       }
@@ -177,7 +185,6 @@ export class VolumeProfile {
     this.registerBind(value);
   }
 
-
   public static isValidVolume(value: string): boolean {
     return !(
       value === "" ||
@@ -185,7 +192,7 @@ export class VolumeProfile {
       Number(value) < 0 ||
       Number(value) > 100
     );
-  } 
+  }
   private registerButton() {
     this.button.register();
   }
@@ -240,4 +247,3 @@ export class VolumeProfile {
     });
   }
 }
-
