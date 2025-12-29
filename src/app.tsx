@@ -1,6 +1,5 @@
 import { VolumeProfile } from "./VolumeProfile";
 import type { VolumeProfileIcon } from "./VolumeProfile";
-require("arrive");
 
 async function main() {
   while (
@@ -17,23 +16,26 @@ async function main() {
     middle: new VolumeProfile("middle", 50, "medium", "f14"),
     right: new VolumeProfile("right", 80, "high", "f15"),
   };
-  document.arrive(`#${profiles.right.elementId}`, () => {
-    // DONT MAKE IT ONCEONLY, NO POINT + MIGHT BREAK
-    console.log("Volume Profiles loaded.");
-    ensureOrder(profiles);
-  });
-
+  ensureOrder(profiles);
   VolumeProfile.Settings.register();
 }
 export default main;
 
 
-function ensureOrder(profiles: { left: VolumeProfile; middle: VolumeProfile; right: VolumeProfile }) {
+async function ensureOrder(profiles: { left: VolumeProfile; middle: VolumeProfile; right: VolumeProfile }) {
     /*
     Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
      and adding them with manual order breaks with the marketplace sometimes.
     Hopefully this is more reliable.
   */
+    while (
+      document.getElementsByClassName("main-nowPlayingBar-extraControls").length === 0 ||
+      profiles.left.element.checkVisibility() === false ||
+      profiles.middle.element.checkVisibility() === false ||
+      profiles.right.element.checkVisibility() === false
+    ) {
+      await new Promise((resolve) => setTimeout(resolve, 100));
+    }
     // get children of main-nowPlayingBar-extraControls
     const extraControls = document.getElementsByClassName(
       "main-nowPlayingBar-extraControls",

@@ -7,6 +7,8 @@ import packageJson from '../package.json';
 import fs from 'fs';
 const postCssPlugin = require("esbuild-plugin-postcss2");
 
+const minify = process.argv.includes('--no-minify') ? false : true;
+
 const nameId = `volume-profiles-${packageJson.version}`
 const id = nameId.replace(/[\-\.]/g, 'D');
 const esbuildOptions = {
@@ -32,7 +34,7 @@ const esbuildOptions = {
 if (fs.existsSync('./dist')) {
   fs.rmSync('./dist', { recursive: true });
 }
-build({nameId: nameId}, "./dist", false, esbuildOptions, true, "./src");
+build({nameId: nameId}, "./dist", false, esbuildOptions, minify, "./src");
 const manifest = JSON.parse(fs.readFileSync('manifest.json', 'utf-8'));
 manifest.main = `dist/${nameId}.js`;
 fs.writeFileSync('manifest.json', JSON.stringify(manifest, null, 2));
