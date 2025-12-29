@@ -20,6 +20,15 @@ async function main() {
   document.arrive(`#${profiles.right.elementId}`, () => {
     // DONT MAKE IT ONCEONLY, NO POINT + MIGHT BREAK
     console.log("Volume Profiles loaded.");
+    ensureOrder(profiles);
+  });
+
+  VolumeProfile.Settings.register();
+}
+export default main;
+
+
+function ensureOrder(profiles: { left: VolumeProfile; middle: VolumeProfile; right: VolumeProfile }) {
     /*
     Why check order? Because Spicetify's button registering sometimes rotates order for some reason,,
      and adding them with manual order breaks with the marketplace sometimes.
@@ -40,8 +49,4 @@ async function main() {
       profiles.right.element,
       profiles.middle.element.nextSibling,
     );
-  });
-
-  VolumeProfile.Settings.register();
 }
-export default main;
