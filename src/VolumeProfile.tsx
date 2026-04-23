@@ -110,10 +110,8 @@ export class VolumeProfile {
     bind?: Bind,
   ) {
     this._id = id;
-    // await other button to steal classes and style
-
     const buttonSvg = `
-        <svg style="visibility: hidden" viewBox="0 0 16 16">
+        <svg class="e-91000-icon e-91000-baseline" style="--encore-icon-height: var(--encore-graphic-size-decorative-smaller); --encore-icon-width: var(--encore-graphic-size-decorative-smaller);" viewBox="0 0 16 16">
           ${VolumeProfile.icons.fromString(icon)}
         </svg>
     `;
@@ -129,7 +127,7 @@ export class VolumeProfile {
       true,
     );
     this.element.id = this.elementId;
-    // this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
+    this.element.children[0].classList.add("e-91000-button__icon-wrapper"); // to center correctly icon
 
     this.element.addEventListener("contextmenu", (ev) => {
       // contextmenu = right click
@@ -150,7 +148,7 @@ export class VolumeProfile {
     // Ensure volume is valid
     if (Number.isNaN(this.volume)) this.volume = defaultVolume;
     if (bind) this.bind = bind;
-    
+
     this.register();
   }
   public readonly _id: string;
@@ -229,25 +227,6 @@ export class VolumeProfile {
   public register() {
     this.registerButton();
     this.registerSetting();
-    waitForElm('[data-testid="lyrics-button"]').then(((lyrics_button: HTMLElement) => {
-
-      const buttonButton = this.button.element
-      const buttonSpan = buttonButton.firstElementChild as HTMLElement;
-      const buttonSvg = buttonSpan.firstElementChild as SVGElement;
-
-      const lyricsButton = lyrics_button
-      const lyricsSpan = lyricsButton.firstElementChild as HTMLElement;
-      const lyricsSvg = lyricsSpan.firstElementChild as SVGElement;
-
-      buttonButton.classList.add(...Array.from(lyricsButton.classList));
-      buttonSpan.classList.add(...Array.from(lyricsSpan.classList));
-      buttonSvg.classList.add(...Array.from(lyricsSvg.classList));
-
-      buttonButton.style.cssText = lyricsButton.style.cssText;
-      buttonSpan.style.cssText = lyricsSpan.style.cssText;
-      buttonSvg.style.cssText = lyricsSvg.style.cssText;
-
-    }))
   }
 
   public toString(): string {
@@ -268,29 +247,3 @@ export class VolumeProfile {
     });
   }
 }
-
-// Source - https://stackoverflow.com/a/61511955
-// Posted by Yong Wang, modified by community. See post 'Timeline' for change history
-// Retrieved 2026-04-23, License - CC BY-SA 4.0
-
-function waitForElm(selector: string):Promise<HTMLElement> {
-  return new Promise(resolve => {
-    if (document.querySelector(selector)) {
-      return resolve(document.querySelector(selector)!);
-    }
-
-    const observer = new MutationObserver(mutations => {
-      if (document.querySelector(selector)) {
-        observer.disconnect();
-        resolve(document.querySelector(selector)!);
-      }
-    });
-
-    // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-  });
-}
-
